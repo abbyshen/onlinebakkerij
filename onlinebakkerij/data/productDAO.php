@@ -9,14 +9,14 @@ class productDAO {
     public function getAll() {
         $lijst = array();
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select product.id as productid, naam,
-                soortid, aantal, omschrijving from product,
+        $sql = "select product.id as productid, naam, prijs,
+                soortid, omschrijving from product,
                 soort where soortid =
                 soort.id";
         $resultSet = $dbh->query($sql);
         foreach ($resultSet as $rij) {
             $soort = soort::create($rij["soortid"], $rij["omschrijving"]);
-            $product = product::create($rij["productid"], $rij["naam"], $soort);
+            $product = product::create($rij["productid"], $rij["naam"], $rij{"prijs"}, $soort);
             array_push($lijst, $product);
         }
         $dbh = null;

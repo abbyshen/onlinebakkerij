@@ -10,9 +10,9 @@ class productservice {
         return $lijst;
     }
 
-    public function voegNieuwProductToe($naam, $soortId) {
+    public function voegNieuwProductToe($naam, $prijs, $soortId) {
         $ProductDAO = new ProductDAO();
-        $ProductDAO->create($naam, $soortId);
+        $ProductDAO->create($naam, $prijs, $soortId);
     }
 
     public function verwijderProduct($id) {
@@ -26,12 +26,13 @@ class productservice {
         return $product;
     }
 
-    public function updateProduct($id, $naam, $soortId) {
+    public function updateProduct($id, $naam,$prijs, $soortId) {
         $SoortDAO = new SoortDAO();
         $ProductDAO = new ProductDAO();
         $soort = $soortDAO->getById($soortId);
         $product = $productDAO->getById($id);
         $product->setNaam($naam);
+        $product->setPrijs($prijs);
         $product->setGenre($soort);
         $productDAO->update($product);
     }
