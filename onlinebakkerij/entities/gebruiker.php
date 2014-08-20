@@ -12,7 +12,6 @@ class gebruiker {
     private $woonplaats;
     private $postcode;
     private $straat;
-    private $nummer;
 
     private function __construct($id, $naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
                                 ,$woonplaats, $postcode, $straat, $nummer) {
