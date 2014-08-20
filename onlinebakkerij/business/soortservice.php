@@ -6,7 +6,7 @@ class Soortenservice {
 
     public function getSoortenOverzicht() {
         $SoortDAO = new SoortDAO();
-        $lijst = $soortDAO->getAll();
+        $lijst = $SoortDAO->getAll();
         return $lijst;
     }
 

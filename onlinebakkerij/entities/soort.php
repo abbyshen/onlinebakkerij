@@ -3,17 +3,15 @@ class soort {
     private static $idMap = array();
     private $id;
     private $omschrijving;
-    private $extrainfo;
 
-    private function __construct($id, $omschrijving,$extrainfo) {
+    private function __construct($id, $omschrijving) {
         $this->id = $id;
         $this->omschrijving = $omschrijving;
-        $this->extrainfo=$extrainfo;
     }
 
-    public static function create($id, $omschrijving,$extrainfo) {
+    public static function create($id, $omschrijving) {
         if (!isset(self::$idMap[$id])) {
-            self::$idMap[$id] = new soort($id, $omschrijving,$extrainfo);
+            self::$idMap[$id] = new soort($id, $omschrijving);
         }
         return self::$idMap[$id];
     }
@@ -26,15 +24,8 @@ class soort {
         return $this->omschrijving;
     }
     
-    public function getExtrainfo() {
-        return $this->extrainfo;
-    }
-
     public function setOmschrijving($omschrijving) {
         $this->omschrijving = $omschrijving;
     }
     
-    public function setExtrainfo($extrainfo) {
-        $this->extrainfo = $extrainfo;
-    }
 }
