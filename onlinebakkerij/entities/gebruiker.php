@@ -26,6 +26,16 @@ class gebruiker {
         $this->straat = $straat;
         $this->nummer = $nummer;
     }
+    public function randomPassword(){
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return sha1(implode($pass)); //turn the array into a string
+    }
 
     public static function create($id, $naam,$voornaam, $wachtwoord, $telefoonnummer, $emailadres
                                   , $woonplaats, $postcode, $straat, $nummer) {
@@ -44,7 +54,7 @@ class gebruiker {
         return $this->naam;
     }
     
-    public function getVroonaam(){
+    public function getVoornaam(){
         return $this->voornaam;
     }
 
