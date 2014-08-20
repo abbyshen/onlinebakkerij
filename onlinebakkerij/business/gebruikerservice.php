@@ -9,26 +9,37 @@ class gebruikerservice {
                                 ,$postcode,$straat,$nummer);
     }
 
-    public function verwijderProduct($id) {
-        $ProductDAO = new ProductDAO();
-        $ProductDAO->delete($id);
+    public function verwijderGebruiker($id) {
+        $GebruikerDAO = new gebruikerDAO();
+        $gebruikerDAO->delete($id);
     }
 
-    public function haalProductOp($id) {
-        $ProductDAO = new ProductDAO();
-        $product = $ProductDAO->getById($id);
-        return $product;
+    public function haalGebruikerOpId($id) {
+        $gebruikerDAO = new gebruikerDAO();
+        $gebruiker = $gebruikerDAO->getById($id);
+        return $gebruiker;
+    }
+    
+    public function haalGebruikerOpemailadres($emailadres) {
+        $gebruikerDAO = new gebruikerDAO();
+        $gebruiker = $gebruikerDAO->getByemailadres($emailadres);
+        return $gebruiker;
     }
 
-    public function updateProduct($id, $naam,$prijs, $soortId) {
-        $SoortDAO = new SoortDAO();
-        $ProductDAO = new ProductDAO();
-        $soort = $soortDAO->getById($soortId);
-        $product = $productDAO->getById($id);
-        $product->setNaam($naam);
-        $product->setPrijs($prijs);
-        $product->setGenre($soort);
-        $productDAO->update($product);
+    public function updateGebruiker($id,$naam, $voornaam, $wachtwoord, $telefoonnummer,$emailadres
+                                ,$woonplaats, $postcode, $straat, $nummer) {
+        $gebruikerDAO = new gebruikerDAO();
+        $gebruiker = $gebruikerDAO->getById($id);
+        $gebruiker->setNaam($naam);
+        $gebruiker->setVoornaam($voornaam);
+        $gebruiker->setWachtwoord($wachtwoord);
+        $gebruiker->setTelefoonnummer($telefoonnummer);
+        $gebruiker->setEmailadres($emailadres);
+        $gebruiker->setWoonplaats($woonplaats);
+        $gebruiker->setPostcode($postcode);
+        $gebruiker->setStraat($straat);
+        $gebruiker->setNummer($nummer);
+        $gebruiker->update($gebruiker);
     }
 }
 
