@@ -14,7 +14,7 @@ class gebruiker {
     private $straat;
 
     private function __construct($id, $naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
-                                ,$woonplaats, $postcode, $straat, $nummer) {
+                                ,$woonplaats, $postcode, $straat, $nummer, $geblokkeerd) {
         $this->id = $id;
         $this->naam = $naam;
         $this->voornaam = $voornaam;
@@ -25,6 +25,7 @@ class gebruiker {
         $this->postcode = $postcode;
         $this->straat = $straat;
         $this->nummer = $nummer;
+        $this->geblokkeerd = $geblokkeerd;
     }
     public function randomPassword(){
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
@@ -38,10 +39,10 @@ class gebruiker {
     }
 
     public static function create($id, $naam,$voornaam, $wachtwoord, $telefoonnummer, $emailadres
-                                  , $woonplaats, $postcode, $straat, $nummer) {
+                                  , $woonplaats, $postcode, $straat, $nummer,$geblokkeerd) {
         if (!isset(self::$idMap[$id])) {
             self::$idMap[$id] = new gebruiker($id, $naam, $voornaam, $wachtwoord, $telefoonnummer
-                                             ,$emailadres,$woonplaats,$postcode,$straat,$nummer);
+                                             ,$emailadres,$woonplaats,$postcode,$straat,$nummer,$geblokkeerd);
         }
         return self::$idMap[$id];
     }
@@ -84,6 +85,10 @@ class gebruiker {
 
     public function getNummer(){
         return $this->nummer;
+    }
+    
+    public function getGeblokkeerd(){
+        return $this->geblokkeerd;
     }
 
     public function setNaam($naam) {

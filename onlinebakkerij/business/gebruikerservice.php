@@ -5,9 +5,10 @@ class gebruikerservice {
     public function voegNieuwGebruikerToe($naam, $voornaam, $telefoonnummer
                                         ,$emailadres, $woonplaats, $postcode, $straat, $nummer) {
         $wachtwoord= new randomPassword();
+        $geblokkeerd = false;
         $gebruikerDAO = new gebruikerDAO();
         $gebruikerDAO->create($naam, $voornaam,$wachtwoord,$telefoonnummer,$emailadres,$woonplaats
-                                ,$postcode,$straat,$nummer);
+                                ,$postcode,$straat,$nummer,$geblokkeerd);
     }
 
     public function verwijderGebruiker($id) {
