@@ -8,16 +8,16 @@ class product {
     private $soort;
     private $prijs;
 
-    private function __construct($id, $naam, $soort,$prijs) {
+    private function __construct($id, $naam,$prijs, $soort) {
         $this->id = $id;
         $this->naam = $naam;
-        $this->soort = $soort;
         $this->prijs = $prijs;
+        $this->soort = $soort;
     }
 
-    public static function create($id, $naam, $soort,$prijs) {
+    public static function create($id, $naam, $prijs, $soort) {
         if (!isset(self::$idMap[$id])) {
-            self::$idMap[$id] = new product($id, $naam, $soort,$prijs);
+            self::$idMap[$id] = new product($id, $naam,$prijs, $soort);
         }
         return self::$idMap[$id];
     }
