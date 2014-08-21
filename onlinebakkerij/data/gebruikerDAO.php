@@ -14,10 +14,14 @@ class gebruikerDAO {
             $pass[] = $alphabet[$n];
         }
         $password = implode($pass);
-        $mail = mail($emailadres,"wachtwoord bakker vroman","uw wachtwoord voor de bakker vroman is ".$password."! /r/n als u ingelogd bent, kan u dit veranderen in 'mijn profiel'");
-        if (mail == FALSE)
+        $to = "$emailadres";
+        $subject = "wachtwoord nieuw account bakkerij vroman";
+        $body = "uw wachtwoord voor de bakker vroman is:" . $password . "je kan je wachtwoord aanpassen in je profiel ";
+        $headers = "From: root@localhost.com";
+        if (mail($to, $subject, $body, $headers)) {
+            return sha1($password); //turn the array into a string
+        } else
             throw new mailmisluktException();
-        return sha1($password); //turn the array into a string
     }
 
     public function getById($id) {
