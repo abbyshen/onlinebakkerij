@@ -5,7 +5,7 @@ class gebruikerservice {
     public function voegNieuwGebruikerToe($naam, $voornaam, $telefoonnummer
                                         ,$emailadres, $woonplaats, $postcode, $straat, $nummer){
         $gebruikerDao= new gebruikerDAO();
-        $wachtwoord= $gebruikerDao->randomPassword();
+        $wachtwoord= $gebruikerDao->randomPassword($emailadres);
         $geblokkeerd = false;
         $gebruikerDAO = new gebruikerDAO();
         $gebruikerDAO->create($naam, $voornaam,$wachtwoord,$telefoonnummer,$emailadres,$woonplaats

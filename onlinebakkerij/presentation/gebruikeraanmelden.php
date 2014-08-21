@@ -12,6 +12,11 @@
             <p style="color: red">emailadres bestaat al</p>
             <?php
         }
+        if ($error == "fail2mail") {
+            ?>
+            <p style="color: red">er is een fout met het emailadres probeer het met een ander emailadres</p>
+            <?php
+            }
         ?>
         <form method="post" action="aanmelden.php?action=process">
             <table>

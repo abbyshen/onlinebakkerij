@@ -14,7 +14,7 @@ class gebruikerDAO {
             $pass[] = $alphabet[$n];
         }
         $password = implode($pass);
-        $mail = mail($emailadres,"wachtwoord bakker vroman","uw wachtwoord voor de bakker vroman is ".$password."! /r./n. als u ingelogd bent, kan u dit veranderen in 'mijn profiel'");
+        $mail = mail($emailadres,"wachtwoord bakker vroman","uw wachtwoord voor de bakker vroman is ".$password."! /r/n als u ingelogd bent, kan u dit veranderen in 'mijn profiel'");
         if (mail == FALSE)
             throw new mailmisluktException();
         return sha1($password); //turn the array into a string
