@@ -1,55 +1,71 @@
 <?php
+
 require_once("data/dbconfig.php");
 require_once("entities/gebruiker.php");
 
-class gebruikerDAO{
+class gebruikerDAO {
+
+    public function randomPassword($emailadres) {
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        $password = implode($pass);
+        $mail = mail($emailadres,"wachtwoord bakker vroman","uw wachtwoord voor de bakker vroman is ".$password."! /r./n. als u ingelogd bent, kan u dit veranderen in 'mijn profiel'");
+        if (mail == FALSE)
+            throw new mailmisluktException();
+        return sha1($password); //turn the array into a string
+    }
+
     public function getById($id) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select id, naam, voornaam, wachtwoord, telefoon, emailadres, woonplaats, postcode
+        $sql = "select gebruikersid, naam, voornaam, wachtwoord, telefoon, emailadres, woonplaats, postcode
                 , straat and nummer from gebruiker where
                 gebruiker.id = " . $id;
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch();
-        $gebruiker = product::create($rij["id"], $rij["naam"], $rij["voornaam"], $rij["wachtwoord"]
-                    ,$rij["telefoonnummer"], $rij["emailadres"], $rij["woonplaats"], $rij["postcode"]
-                    ,$rij["straat"],$rij["nummer"],$rij["geblokkeerd"]);
+        $gebruiker = gebruiker::create($rij["gebruikersid"], $rij["naam"], $rij["voornaam"], $rij["wachtwoord"]
+                        , $rij["telefoonnummer"], $rij["emailadres"], $rij["woonplaats"], $rij["postcode"]
+                        , $rij["straat"], $rij["nummer"], $rij["geblokkeerd"]);
         $dbh = null;
         return $gebruiker;
     }
 
     public function getByemailadres($emailadres) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select id, naam, voornaam, wachtwoord, telefoon, emailadres, woonplaats, postcode
-                , straat and nummer from gebruiker where
-                gebruiker.emailadres = " . $emailadres;
+        $sql = "select gebruikersid, naam, voornaam, wachtwoord, telefoonnummer, emailadres, woonplaats, postcode
+                , straat and nummer from gebruiker where emailadres = '" . $emailadres . "'";
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch();
         if (!$rij) {
             return null;
         } else {
-            $gebruiker = product::create($rij["id"], $rij["naam"], $rij["voornaam"], $rij["wachtwoord"]
-                    ,$rij["telefoonnummer"], $rij["emailadres"], $rij["woonplaats"], $rij["postcode"]
-                    ,$rij["straat"],$rij["nummer"],$rij["geblokkeerd"]);
+            $gebruiker = gebruiker::create($rij["gebruikersid"], $rij["naam"], $rij["voornaam"], $rij["wachtwoord"]
+                            , $rij["telefoonnummer"], $rij["emailadres"], $rij["woonplaats"], $rij["postcode"]
+                            , $rij["straat"], $rij["nummer"], $rij["geblokkeerd"]);
             $dbh = null;
-            return $boek;
+            return $gebruiker;
         }
     }
 
     public function create($naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
-                                ,$woonplaats, $postcode, $straat, $nummer) {
+    , $woonplaats, $postcode, $straat, $nummer, $geblokkeerd) {
         $bestaandemailadres = $this->getByemailadres($emailadres);
-        if (isset($$bestaandemailadres))
+        if (isset($bestaandemailadres))
             throw new EmailadresBestaatException();
-        $sql = "insert into product (naam, voornaam, wachtwoord, telefoonnummer, emailadres
-                                ,woonplaats, postcode, straat, nummer)
-                values (" . $naam . ", " . $voornaam . ",". $wachtwoord .",". $telefoonnummer.","
-                . $emailadres .",".$woonplaats.",".$postcode.",".$straat.",".$nummer.")";
+        $sql = "insert into gebruiker (naam, voornaam, wachtwoord, telefoonnummer, emailadres
+                                ,woonplaats, postcode, straat, nummer,geblokkeerd)
+                values ('" . $naam . "', '" . $voornaam . "','" . $wachtwoord . "','" . $telefoonnummer . "','"
+                . $emailadres . "','" . $woonplaats . "','" . $postcode . "','" . $straat . "','" . $nummer . "','" . $geblokkeerd . "')";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $dbh->exec($sql);
-        $gebruikerId = $dbh->lastInsertId();
+        /* $gebruikersId = $dbh->lastInsertId(); */
         $dbh = null;
         $gebruiker = gebruiker::create($naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
-                                ,$woonplaats, $postcode, $straat, $nummer);
+                        , $woonplaats, $postcode, $straat, $nummer, $geblokkeerd);
         return $gebruiker;
     }
 
@@ -79,5 +95,5 @@ class gebruikerDAO{
         $dbh->exec($sql);
         $dbh = null;
     }
-}
 
+}

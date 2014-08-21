@@ -1,10 +1,11 @@
 <?php
-require_once ("entities/gebruiker.php");
+require_once ("data/gebruikerDAO.php");
 
 class gebruikerservice {
     public function voegNieuwGebruikerToe($naam, $voornaam, $telefoonnummer
-                                        ,$emailadres, $woonplaats, $postcode, $straat, $nummer) {
-        $wachtwoord= new randomPassword();
+                                        ,$emailadres, $woonplaats, $postcode, $straat, $nummer){
+        $gebruikerDao= new gebruikerDAO();
+        $wachtwoord= $gebruikerDao->randomPassword();
         $geblokkeerd = false;
         $gebruikerDAO = new gebruikerDAO();
         $gebruikerDAO->create($naam, $voornaam,$wachtwoord,$telefoonnummer,$emailadres,$woonplaats
