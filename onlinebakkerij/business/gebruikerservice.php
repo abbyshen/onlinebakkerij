@@ -44,5 +44,20 @@ class gebruikerservice {
         $gebruiker->setNummer($nummer);
         $gebruiker->update($gebruiker);
     }
+    
+    public function loggebruikerin($emailadres,$wachtwoord){
+        $gebruikerDAO = new gebruikerDAO();
+        $gebruikerDAO->login($emailadres, $wachtwoord);
+    }
+    
+    public function sec_session_start(){
+        $gebruikerDAO = new gebruikerDAO();
+        $gebruikerDAO->sec_session_start();
+    }
+    
+    public function logincheck(){
+        $gebruikerDAO = new gebruikerDAO();
+        $gebruikerDAO->login_check();
+    }
 }
 
