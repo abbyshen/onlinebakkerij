@@ -33,6 +33,12 @@ if($gebruikersvc->logincheck()==true){
                         <input type="password" name="p">
                     </td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Toevoegen">
+                    </td>
+                </tr>
             </table>
         </form>
     </body>

@@ -47,6 +47,8 @@ class gebruikerservice {
     
     public function loggebruikerin($emailadres,$wachtwoord){
         $gebruikerDAO = new gebruikerDAO();
+        //$gebruikersid = $gebruikerDAO->
+        //$gebruikerDAO->checkbrute($gebruikerid);
         $gebruikerDAO->login($emailadres, $wachtwoord);
     }
     
