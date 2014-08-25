@@ -25,33 +25,32 @@ class productDAO {
 
     public function getById($id) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select product.id as productid, naam, soortid,
+        $sql = "select product.id as productid, naam, prijs, soortid,
                 omschrijving from product, soort where
                 soortid = soort.id and
                 product.id = " . $id;
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch();
         $soort = soort::create($rij["soortid"], $rij["omschrijving"]);
-        $product = product::create($rij["productid"], $rij["naam"], $soort);
+        $product = product::create($rij["productid"], $rij["naam"], $rij["prijs"], $soort);
         $dbh = null;
-        return $product;
+        return $lijst;
     }
 
     public function getBySoortid($soortid) {
+        $lijst = array();
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select product.id as productid, naam, soortid, omschrijving
+        $sql = "select product.id as productid, naam, prijs, soortid, omschrijving
                 from product, soort where soortid = soort.id
                 and soortid = '" . $soortid . "'";
         $resultSet = $dbh->query($sql);
-        $rij = $resultSet->fetch();
-        if (!$rij) {
-            return null;
-        } else {
-            $soort = soort::create($rij["soortid"], $rij["omschrijving"]);
-            $product = product::create($rij["productid"], $rij["naam"], $soort);
-            $dbh = null;
-            return $product;
+        foreach ($resultSet as $rij){
+        $soort = soort::create($rij["soortid"], $rij["omschrijving"]);
+        $product = product::create($rij["productid"], $rij["naam"], $rij["prijs"], $soort);
+        array_push($lijst, $product);
         }
+        $dbh = null;
+        return $lijst;
     }
 
     public function create($naam, $soortId) {

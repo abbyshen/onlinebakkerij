@@ -2,7 +2,11 @@
 
 require_once ("business/gebruikerservice.php");
 require_once ("exceptions/EmailadresBestaatException.php");
-if ($_GET["action"] == "process") {
+if (!isset($_GET["action"])){
+    $action = null;
+}else
+$action=$_GET["action"];
+if ($action == "process") {
     try {
         Gebruikerservice::voegNieuwGebruikerToe($_POST["txtNaam"], $_POST["txtVoornaam"]
                 , $_POST["txtTelefoonnummer"], $_POST["txtEmailadres"], $_POST["txtWoonplaats"]
@@ -17,6 +21,9 @@ if ($_GET["action"] == "process") {
         exit(0);
     }
 } else {
+    if(!isset($_GET["error"])){
+        $error = null;
+    }else
     $error = $_GET["error"];
     include("presentation/gebruikeraanmelden.php");
 }
