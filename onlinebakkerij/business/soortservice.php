@@ -9,6 +9,11 @@ class Soortenservice {
         $lijst = $SoortDAO->getAll();
         return $lijst;
     }
-
+    
+    public function getSoortbyId($id){
+        $soortDAO = new soortDAO();
+        $soort = $soortDAO->getById($id);
+        return $soort;
+    }
 }
 

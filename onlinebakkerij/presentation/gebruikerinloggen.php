@@ -36,7 +36,7 @@ if($gebruikersvc->logincheck()==true){
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" value="Toevoegen">
+                        <input type="submit" value="inloggen">
                     </td>
                 </tr>
             </table>

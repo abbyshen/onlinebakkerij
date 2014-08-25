@@ -28,5 +28,4 @@ class soortDAO {
         $dbh = null;
         return $soort;
     }
-
 }

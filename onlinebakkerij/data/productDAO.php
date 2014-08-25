@@ -37,11 +37,11 @@ class productDAO {
         return $product;
     }
 
-    public function getByNaam($naam) {
+    public function getBySoortid($soortid) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $sql = "select product.id as productid, naam, soortid, omschrijving
                 from product, soort where soortid = soort.id
-                and naam = '" . $naam . "'";
+                and soortid = '" . $soortid . "'";
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch();
         if (!$rij) {
@@ -50,7 +50,7 @@ class productDAO {
             $soort = soort::create($rij["soortid"], $rij["omschrijving"]);
             $product = product::create($rij["productid"], $rij["naam"], $soort);
             $dbh = null;
-            return $boek;
+            return $product;
         }
     }
 

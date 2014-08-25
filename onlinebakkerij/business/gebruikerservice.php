@@ -49,7 +49,8 @@ class gebruikerservice {
         $gebruikerDAO = new gebruikerDAO();
         //$gebruikersid = $gebruikerDAO->
         //$gebruikerDAO->checkbrute($gebruikerid);
-        $gebruikerDAO->login($emailadres, $wachtwoord);
+        $gelukt=$gebruikerDAO->login($emailadres, $wachtwoord);
+        return $gelukt;
     }
     
     public function sec_session_start(){

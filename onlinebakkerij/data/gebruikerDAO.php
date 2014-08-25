@@ -102,8 +102,6 @@ class gebruikerDAO {
 
     public function sec_session_start() {
         $session_name = 'sec_session_id';   // Set a custom session name
-        $secure = SECURE;
-        // This stops JavaScript being able to access the session id.
         $httponly = true;
         // Forces sessions to only use cookies.
         if (ini_set('session.use_only_cookies', 1) === FALSE) {
@@ -112,7 +110,7 @@ class gebruikerDAO {
         }
         // Gets current cookies params.
         $cookieParams = session_get_cookie_params();
-        session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
+        session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure= false , $httponly);
         // Sets the session name to the one set above.
         session_name($session_name);
         session_start();            // Start the PHP session 
@@ -127,7 +125,7 @@ class gebruikerDAO {
         $dbh->exec($sql);    // Execute the prepared query.
         $dbh = NULL;
         $gebruikerid = $rij["gebruikersid"];
-        $password = $rij["db_password"];
+        $db_password = $rij["db_password"];
         $geblokkeerd = $rij["geblokkeerd"];
         // hash the password
         $password = sha1($password);
@@ -146,19 +144,12 @@ class gebruikerDAO {
                 // Get the user-agent string of the user.
                 $user_browser = $_SERVER['HTTP_USER_AGENT'];
                 // XSS protection as we might print this value
-                $gebruikerid = preg_replace("/[^0-9]+/", "", $gebruikerid);
-                $emailadres = preg_replace("/[^0-9a-zA-Z@.]", "", $emailadres);
                 $_SESSION['gebruikerid'] = $gebruikerid;
                 $_SESSION['emailadres'] = $emailadres;
                 $_SESSION['login_string'] = sha1($password . $user_browser);
                 // Login successful.
                 return true;
             } else {
-                // Password is not correct
-                // We record this attempt in the database
-                $now = time();
-                $dbh->exec("INSERT INTO login_attempts(gebruikerid, time)
-                                    VALUES ('$gebruikerid', '$now')");
                 return false;
             }
         }
@@ -194,29 +185,17 @@ class gebruikerDAO {
             // Get the user-agent string of the user.
             $user_browser = $_SERVER['HTTP_USER_AGENT'];
             $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-            if ($dbh->prepare("SELECT wachtwoord FROM gebruiker WHERE id = ? LIMIT 1")) {
-                // Bind "$user_id" to parameter. 
-                $dbh->bind_param('i', $gebruikerid);
-                $dbh->execute();   // Execute the prepared query.
-                $dbh->store_result();
+            $sql = "SELECT wachtwoord FROM gebruiker WHERE gebruikersid = '$gebruikerid' LIMIT 1";
+            $resultSet = $dbh->query($sql);
+            $rij = $resultSet->fetch();
+            $dbh->exec($sql);   // Execute the prepared query.
+            $db_wachtwoord = $rij["wachtwoord"];
 
-                if ($dbh->num_rows == 1) {
-                    // If the user exists get variables from result.
-                    $dbh->bind_result($wachtwoord);
-                    $dbh->fetch();
-                    $login_check = sha1($wachtwoord . $user_browser);
+            $login_check = $db_wachtwoord.sha1($user_browser);
 
-                    if ($login_check == $login_string) {
-                        // Logged In!!!! 
-                        return true;
-                    } else {
-                        // Not logged in 
-                        return false;
-                    }
-                } else {
-                    // Not logged in 
-                    return false;
-                }
+            if ($login_check == $login_string) {
+                // Logged In!!!! 
+                return true;
             } else {
                 // Not logged in 
                 return false;
@@ -225,37 +204,7 @@ class gebruikerDAO {
             // Not logged in 
             return false;
         }
-    }
-
-    public function esc_url($url) {
-
-        if ('' == $url) {
-            return $url;
-        }
-
-        $url = preg_replace('|[^a-z0-9-~+_.?#=!&;,/:%@$\|*\'()\\x80-\\xff]|i', '', $url);
-
-        $strip = array('%0d', '%0a', '%0D', '%0A');
-        $url = (string) $url;
-
-        $count = 1;
-        while ($count) {
-            $url = str_replace($strip, '', $url, $count);
-        }
-
-        $url = str_replace(';//', '://', $url);
-
-        $url = htmlentities($url);
-
-        $url = str_replace('&amp;', '&#038;', $url);
-        $url = str_replace("'", '&#039;', $url);
-
-        if ($url[0] !== '/') {
-            // We're only interested in relative links from $_SERVER['PHP_SELF']
-            return '';
-        } else {
-            return $url;
-        }
+       
     }
 
 }

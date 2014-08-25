@@ -9,6 +9,12 @@ class productservice {
         $lijst = $ProductDAO->getAll();
         return $lijst;
     }
+    
+    public function getproductenpersoort($soortid){
+        $ProductDAO = new productDAO();
+        $lijst = $ProductDAO->getBySoortid($soortid);
+        return $lijst;
+    }
 
     public function voegNieuwProductToe($naam, $prijs, $soortId) {
         $ProductDAO = new ProductDAO();
@@ -23,6 +29,12 @@ class productservice {
     public function haalProductOp($id) {
         $ProductDAO = new ProductDAO();
         $product = $ProductDAO->getById($id);
+        return $product;
+    }
+    
+    public function haalProductOpMetSoort($soortid){
+        $productDAO = new productDAO();
+        $product = $productDAO->getBySoortid($soortid);
         return $product;
     }
 
