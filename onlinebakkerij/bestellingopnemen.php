@@ -3,13 +3,16 @@ session_start();
 require_once ("business/gebruikerservice.php");
 require_once ("business/soortservice.php");
 require_once ("business/productservice.php");
+require_once ("exceptions/EmailadresBestaatException.php");
 $soortsvc = new Soortenservice();
 $soortenLijst = $soortsvc->getSoortenOverzicht();
 $productSvc1 = new productservice();
+$lijst = array();
+$productenLijst= array();
 foreach ($soortenLijst as $soort){
-    $productenLijst = $productSvc1->getproductenpersoort($soort->getId());
+    $productenLijst= $productSvc1->getproductenpersoort($soort->getId());
+    array_push($lijst, $productenLijst);
 }
-require_once ("exceptions/EmailadresBestaatException.php");
 if (!isset($_GET["action"])){
     $action = null;
 }else

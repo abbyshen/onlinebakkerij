@@ -1,4 +1,5 @@
 <?php
+$name=0;
 $gelukt = gebruikerservice::logincheck();
 if ($gelukt =="loggedin") {
     $logged = "in";
@@ -94,11 +95,14 @@ if ($gelukt =="loggedin") {
         <section>
             <h1>bestel hier</h1>
             <h2>schrijf naast hetgeen u wil het aantal dat u wil.</h2>
-            
-            <?php foreach($productenLijst as $product){
-                print($product->getNaam()+"          " + $product->getPrijs());?> <input type="text" name="txtNaam">
+            <form method="post" action="process_login.php?action=inloggen">
+            <?php 
+             print_r($lijst);
+            foreach($lijst as $productarray){
+                print($productarray->$productenLijst->getNaam()+"          " + $product->$productenLijst->getPrijs());?> <input type="text" name="aantal<?php $naam?>">
             <?php }?>
-    
+                <input type="submit" value="toevoegen">
+            </form>
         </section>
         <footer>
             
