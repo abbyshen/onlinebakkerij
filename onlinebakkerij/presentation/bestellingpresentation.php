@@ -92,13 +92,13 @@ if ($gelukt =="loggedin") {
             </div>
         </header>
         <section>
+            <h1>bestel hier</h1>
+            <h2>schrijf naast hetgeen u wil het aantal dat u wil.</h2>
             
-            <input type="text" name="txtNaam">
-            <input type="text" name="txtNaam">
-            <input type="text" name="txtNaam">
-            <input type="text" name="txtNaam">
-            <input type="text" name="txtNaam">
-            
+            <?php foreach($productenLijst as $product){
+                print($product->getNaam()+"          " + $product->getPrijs());?> <input type="text" name="txtNaam">
+            <?php }?>
+    
         </section>
         <footer>
             

@@ -1,12 +1,20 @@
 <?php
 session_start();
 require_once ("business/gebruikerservice.php");
+require_once ("business/soortservice.php");
+require_once ("business/productservice.php");
+$soortsvc = new Soortenservice();
+$soortenLijst = $soortsvc->getSoortenOverzicht();
+$productSvc1 = new productservice();
+foreach ($soortenLijst as $soort){
+    $productenLijst = $productSvc1->getproductenpersoort($soort->getId());
+}
 require_once ("exceptions/EmailadresBestaatException.php");
 if (!isset($_GET["action"])){
     $action = null;
 }else
 $action=$_GET["action"];
-if ($action == "process") {
+if ($action == "bestellingfase1") {
     try {
         Gebruikerservice::voegNieuwGebruikerToe($_POST["txtNaam"], $_POST["txtVoornaam"]
                 , $_POST["txtTelefoonnummer"], $_POST["txtEmailadres"], $_POST["txtWoonplaats"]
