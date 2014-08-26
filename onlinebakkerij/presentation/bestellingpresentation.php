@@ -4,6 +4,7 @@ if ($gelukt =="loggedin") {
     $logged = "in";
 } else {
     $logged = "out";
+    header("location:process_login.php");
 }
 ?>
 <!DOCTYPE HTML>
@@ -90,20 +91,17 @@ if ($gelukt =="loggedin") {
                 </nav>
             </div>
         </header>
-        <div id="inhoud" class="container">
-            <section id ="welkom">
-                <h1>welkom bij bakkerij vroman!</h1>
-                <p>nieuw in ons assortiment:cupcakes</p>
-                <p>gebakjes:</p>
-
-                <?php
-                foreach ($productenLijst as $product) {
-                    ?><p><?php print($product->getNaam());
-                print("      ");
-                print($product->getPrijs()); ?></p><?php
-            }
-                ?>
-            </section>
-        </div>
+        <section>
+            
+            <input type="text" name="txtNaam">
+            <input type="text" name="txtNaam">
+            <input type="text" name="txtNaam">
+            <input type="text" name="txtNaam">
+            <input type="text" name="txtNaam">
+            
+        </section>
+        <footer>
+            
+        </footer>
     </body>
 </html>

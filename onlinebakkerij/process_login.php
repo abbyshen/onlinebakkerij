@@ -1,5 +1,4 @@
 <?php
-
 include_once ("data/DBconfig.php");
 include_once ("business/gebruikerservice.php");
 $gebruikersvc = new gebruikerservice();
@@ -10,13 +9,15 @@ if (isset($_GET["action"], $_POST['email'], $_POST['p']) and $_GET["action"] == 
     $emailadres = $_POST['email'];
     $wachtwoord = $_POST['p']; // The hashed password.
     if ($gebruikersvc->loggebruikerin($emailadres, $wachtwoord) == true) {
-        // Login success 
-        header("location:toonalleproducten.php");
+        header("location:home.php");
     } else {
         // Login failed 
-        header("location:toonallesoorten.php");
+        header("location:process_login.php?error=loginfailed");
     }
 } else {
-    // The correct POST variables were not sent to this page. 
+    if(!isset($_GET["error"])){
+        $error = null;
+    }else
+    $error = $_GET["error"];
     include("presentation/gebruikerinloggen.php");
 }

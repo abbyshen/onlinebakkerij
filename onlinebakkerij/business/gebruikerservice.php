@@ -47,20 +47,23 @@ class gebruikerservice {
     
     public function loggebruikerin($emailadres,$wachtwoord){
         $gebruikerDAO = new gebruikerDAO();
-        //$gebruikersid = $gebruikerDAO->
         //$gebruikerDAO->checkbrute($gebruikerid);
         $gelukt=$gebruikerDAO->login($emailadres, $wachtwoord);
         return $gelukt;
     }
-    
-    public function sec_session_start(){
-        $gebruikerDAO = new gebruikerDAO();
-        $gebruikerDAO->sec_session_start();
-    }
-    
+
     public function logincheck(){
         $gebruikerDAO = new gebruikerDAO();
-        $gebruikerDAO->login_check();
+        $gelukt=$gebruikerDAO->login_check();
+        return $gelukt;
+    }
+    
+    public function logout(){
+        session_start();
+        unset($_SESSION['gebruikerid']);
+        unset($_SESSION['emailadres']);
+        unset($_SESSION['wachtwoord']);
+        session_destroy();
     }
 }
 

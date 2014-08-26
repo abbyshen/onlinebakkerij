@@ -1,12 +1,8 @@
 <?php
-include_once ("data/DBconfig.php");
 include_once ("business/gebruikerservice.php");
-
-$gebruikersvc = new gebruikerservice;
-$gebruikersvc->sec_session_start();
-
-if($gebruikersvc->logincheck()==true){
+if($gebruikersvc->logincheck()=="loggedin"){
     $logged= "in";
+    
 } else {
     $logged = "out";
 }
@@ -49,6 +45,33 @@ if($gebruikersvc->logincheck()==true){
     </head>
     <body>
         <header>
+            
+            <?php if ($error="loginfailed"){
+                                echo 'uw emailadres en/of wachtwoord waren niet correct';}
+                  if ($logged=="out"){
+              ?>  <form method="post" action="process_login.php?action=inloggen">
+            <table>
+                <tr>
+                    <td>emailadres:</td>
+                    <td>
+                        <input type="text" name="email"
+                    </td>
+                </tr>
+                <tr>
+                    <td>wachtwoord:</td>
+                    <td>
+                        <input type="password" name="p">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="inloggen">
+                    </td>
+                </tr>
+            </table>
+        </form>
+           <?php } else { ?><h2><a href="logout.php">log out</a></h2><?php ;} ?>
             <div class="container">
                 <h1><a href="home.php" id="logo">Bakkerij vroman</a></h1>
                 <nav id="kopnav">

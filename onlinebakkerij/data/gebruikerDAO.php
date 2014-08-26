@@ -100,23 +100,6 @@ class gebruikerDAO {
         $dbh = null;
     }
 
-    public function sec_session_start() {
-        $session_name = 'sec_session_id';   // Set a custom session name
-        $httponly = true;
-        // Forces sessions to only use cookies.
-        if (ini_set('session.use_only_cookies', 1) === FALSE) {
-            header("Location: ../error.php?err=Could not initiate a safe session (ini_set)");
-            exit();
-        }
-        // Gets current cookies params.
-        $cookieParams = session_get_cookie_params();
-        session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure= false , $httponly);
-        // Sets the session name to the one set above.
-        session_name($session_name);
-        session_start();            // Start the PHP session 
-        session_regenerate_id();    // regenerated the session, delete the old one. 
-    }
-
     public function login($emailadres, $password) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $sql = "select gebruikersid, wachtwoord as db_password, geblokkeerd from gebruiker where emailadres = '$emailadres' LIMIT 1";
@@ -141,12 +124,10 @@ class gebruikerDAO {
             // the password the user submitted.
             if ($db_password == $password) {
                 // Password is correct!
-                // Get the user-agent string of the user.
-                $user_browser = $_SERVER['HTTP_USER_AGENT'];
-                // XSS protection as we might print this value
+                session_start();
                 $_SESSION['gebruikerid'] = $gebruikerid;
                 $_SESSION['emailadres'] = $emailadres;
-                $_SESSION['login_string'] = sha1($password . $user_browser);
+                $_SESSION['wachtwoord'] = $password;
                 // Login successful.
                 return true;
             } else {
@@ -155,7 +136,7 @@ class gebruikerDAO {
         }
     }
 
-    public function checkbrute($gebruikerid) {
+    /*public function checkbrute($gebruikerid) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         // Get timestamp of current time 
         $now = time();
@@ -172,37 +153,34 @@ class gebruikerDAO {
         if ($resultSet > 7) {
             $dbh->exec("update gebruiker set geblokeerd = true where gebruikerid = '$gebruikerid'");
         }
-    }
+    }*/
 
     public function login_check() {
         // Check if all session variables are set 
-        if (isset($_SESSION['gebruikerid'], $_SESSION['emailadres'], $_SESSION['login_string'])) {
-
+        if (isset($_SESSION['gebruikerid'],$_SESSION['emailadres'], $_SESSION['wachtwoord'])) {
             $gebruikerid = $_SESSION['gebruikerid'];
-            $login_string = $_SESSION['login_string'];
             $emailadres = $_SESSION['emailadres'];
+            $wachtwoord = $_SESSION['wachtwoord'];
 
-            // Get the user-agent string of the user.
-            $user_browser = $_SERVER['HTTP_USER_AGENT'];
             $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-            $sql = "SELECT wachtwoord FROM gebruiker WHERE gebruikersid = '$gebruikerid' LIMIT 1";
+            $sql = "SELECT emailadres, wachtwoord FROM gebruiker WHERE gebruikersid = '$gebruikerid' LIMIT 1";
             $resultSet = $dbh->query($sql);
             $rij = $resultSet->fetch();
             $dbh->exec($sql);   // Execute the prepared query.
+            $db_emailadres = $rij["emailadres"];
             $db_wachtwoord = $rij["wachtwoord"];
-
-            $login_check = $db_wachtwoord.sha1($user_browser);
-
-            if ($login_check == $login_string) {
+            if ($db_emailadres == $emailadres and $db_wachtwoord = $wachtwoord) {
                 // Logged In!!!! 
-                return true;
+                $error = "loggedin";
+                return $error;
             } else {
-                // Not logged in 
-                return false;
+                $error = "mailandw8woordnietcorrect" ;
+                return $error;
             }
         } else {
-            // Not logged in 
-            return false;
+            // Not logged in
+            $error = "notloggedin";
+            return $error;
         }
        
     }
