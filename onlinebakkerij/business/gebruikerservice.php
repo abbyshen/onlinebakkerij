@@ -29,20 +29,18 @@ class gebruikerservice {
         return $gebruiker;
     }
 
-    public function updateGebruiker($id,$naam, $voornaam, $wachtwoord, $telefoonnummer,$emailadres
+    public function updateGebruiker($naam, $voornaam, $telefoonnummer,$emailadres
                                 ,$woonplaats, $postcode, $straat, $nummer) {
         $gebruikerDAO = new gebruikerDAO();
-        $gebruiker = $gebruikerDAO->getById($id);
-        $gebruiker->setNaam($naam);
-        $gebruiker->setVoornaam($voornaam);
-        $gebruiker->setWachtwoord($wachtwoord);
-        $gebruiker->setTelefoonnummer($telefoonnummer);
-        $gebruiker->setEmailadres($emailadres);
-        $gebruiker->setWoonplaats($woonplaats);
-        $gebruiker->setPostcode($postcode);
-        $gebruiker->setStraat($straat);
-        $gebruiker->setNummer($nummer);
-        $gebruiker->update($gebruiker);
+        $gebruiker1 = self::haalGebruikerOpemailadres($emailadres);
+        $gebruiker1->setNaam($naam);
+        $gebruiker1->setVoornaam($voornaam);
+        $gebruiker1->setTelefoonnummer($telefoonnummer);
+        $gebruiker1->setWoonplaats($woonplaats);
+        $gebruiker1->setPostcode($postcode);
+        $gebruiker1->setStraat($straat);
+        $gebruiker1->setNummer($nummer);
+        $gebruikerDAO->update($gebruiker1);
     }
     
     public function loggebruikerin($emailadres,$wachtwoord){

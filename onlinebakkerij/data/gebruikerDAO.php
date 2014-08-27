@@ -26,9 +26,8 @@ class gebruikerDAO {
 
     public function getById($id) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select gebruikersid, naam, voornaam, wachtwoord, telefoon, emailadres, woonplaats, postcode
-                , straat and nummer from gebruiker where
-                gebruiker.id = " . $id;
+        $sql = "select gebruikersid, naam, voornaam, wachtwoord, telefoonnummer, emailadres, woonplaats, postcode
+                , straat , nummer from gebruiker where gebruiker.id = " . $id;
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch();
         $gebruiker = gebruiker::create($rij["gebruikersid"], $rij["naam"], $rij["voornaam"], $rij["wachtwoord"]
@@ -40,19 +39,15 @@ class gebruikerDAO {
 
     public function getByemailadres($emailadres) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select gebruikersid, naam, voornaam, wachtwoord, telefoonnummer, emailadres, woonplaats, postcode
-                , straat and nummer from gebruiker where emailadres = '" . $emailadres . "'";
+        $sql = "select gebruikersid, naam, voornaam, wachtwoord, telefoonnummer, emailadres, woonplaats, postcode, straat, nummer,geblokkeerd from gebruiker where emailadres ='$emailadres' limit 1";
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch();
-        if (!$rij) {
-            return null;
-        } else {
-            $gebruiker = gebruiker::create($rij["gebruikersid"], $rij["naam"], $rij["voornaam"], $rij["wachtwoord"]
-                            , $rij["telefoonnummer"], $rij["emailadres"], $rij["woonplaats"], $rij["postcode"]
-                            , $rij["straat"], $rij["nummer"], $rij["geblokkeerd"]);
-            $dbh = null;
-            return $gebruiker;
-        }
+        $dbh->exec($sql);
+        $dbh = null;
+        $gebruiker = gebruiker::create($rij["gebruikersid"], $rij["naam"], $rij["voornaam"], $rij["wachtwoord"]
+                        , $rij["telefoonnummer"], $rij["emailadres"], $rij["woonplaats"], $rij["postcode"]
+                        , $rij["straat"], $rij["nummer"], $rij["geblokkeerd"]);
+        return $gebruiker;
     }
 
     public function create($naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
@@ -80,21 +75,21 @@ class gebruikerDAO {
         $dbh = null;
     }
 
-    public function update($gebruiker) {
-        $bestaandgebruiker = $this->getByemailadres($gebruiker->getEmailadres());
-        if (isset($bestaandgebruiker) && $bestaandgebruiker->getId() != $gebruiker->getId())
-            throw
-            new EmailadresBestaatException();
-        $sql = "update gebruiker set naam='" . $gebruiker->getNaam() .
-                "', voornaam='" . $gebruiker->getVoornaam() .
-                "', wachtwoord='" . $gebruiker->getWachtwoord() .
-                "', telefoonnummer='" . $gebruiker->getTelefoonnummer() .
-                "', emailadres='" . $gebruiker->getEmailadres() .
-                "', woonplaats='" . $gebruiker->getWoonplaats() .
-                "', postcode='" . $gebruiker->getPostcode() .
-                "', straat='" . $gebruiker->getStraat() .
-                "', nummer'" . $gebruiker->getNummer() .
-                "' where id = " . $gebruiker->getId();
+    public function update($gebruiker1) {
+        $sql = "select voornaam from gebruiker where emailadres = :email";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);  
+        $sth = $dbh->prepare($sql);
+        $sth->bindParam(':email', $gebruiker1->getEmailadres());
+        $gebruiker=$sth->execute();
+        $sql = "update gebruiker set naam='" . $gebruiker1->getNaam() .
+                "', voornaam='" . $gebruiker1->getVoornaam() .
+                "', wachtwoord='" . $gebruiker1->getWachtwoord() .
+                "', telefoonnummer='" . $gebruiker1->getTelefoonnummer() .
+                "', woonplaats='" . $gebruiker1->getWoonplaats() .
+                "', postcode='" . $gebruiker1->getPostcode() .
+                "', straat='" . $gebruiker1->getStraat() .
+                "', nummer'" . $gebruiker1->getNummer() .
+                "' where emailadres = '".$gebruiker1->getEmailadres()."'";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $dbh->exec($sql);
         $dbh = null;
@@ -136,28 +131,28 @@ class gebruikerDAO {
         }
     }
 
-    /*public function checkbrute($gebruikerid) {
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        // Get timestamp of current time 
-        $now = time();
+    /* public function checkbrute($gebruikerid) {
+      $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+      // Get timestamp of current time
+      $now = time();
 
-        // All login attempts are counted from the past 2 hours. 
-        $valid_attempts = $now - (2 * 60 * 60);
+      // All login attempts are counted from the past 2 hours.
+      $valid_attempts = $now - (2 * 60 * 60);
 
-        $sql = "SELECT time FROM login_attempts WHERE gebruikerid = '$gebruikerid' AND time > '$valid_attempts'";
-        $resultSet = $dbh->query($sql);
-        $rij = $resultSet->fetch();
-        $dbh->exec($sql);
+      $sql = "SELECT time FROM login_attempts WHERE gebruikerid = '$gebruikerid' AND time > '$valid_attempts'";
+      $resultSet = $dbh->query($sql);
+      $rij = $resultSet->fetch();
+      $dbh->exec($sql);
 
-        // If there have been more than 7 failed logins 
-        if ($resultSet > 7) {
-            $dbh->exec("update gebruiker set geblokeerd = true where gebruikerid = '$gebruikerid'");
-        }
-    }*/
+      // If there have been more than 7 failed logins
+      if ($resultSet > 7) {
+      $dbh->exec("update gebruiker set geblokeerd = true where gebruikerid = '$gebruikerid'");
+      }
+      } */
 
     public function login_check() {
         // Check if all session variables are set 
-        if (isset($_SESSION['gebruikerid'],$_SESSION['emailadres'], $_SESSION['wachtwoord'])) {
+        if (isset($_SESSION['gebruikerid'], $_SESSION['emailadres'], $_SESSION['wachtwoord'])) {
             $gebruikerid = $_SESSION['gebruikerid'];
             $emailadres = $_SESSION['emailadres'];
             $wachtwoord = $_SESSION['wachtwoord'];
@@ -174,7 +169,7 @@ class gebruikerDAO {
                 $error = "loggedin";
                 return $error;
             } else {
-                $error = "mailandw8woordnietcorrect" ;
+                $error = "mailandw8woordnietcorrect";
                 return $error;
             }
         } else {
@@ -182,7 +177,6 @@ class gebruikerDAO {
             $error = "notloggedin";
             return $error;
         }
-       
     }
 
 }
