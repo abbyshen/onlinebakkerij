@@ -7,34 +7,28 @@ require_once ("exceptions/EmailadresBestaatException.php");
 $soortsvc = new Soortenservice();
 $soortenLijst = $soortsvc->getSoortenOverzicht();
 $productenSvc1 = new productservice();
+$alleproducten = $productenSvc1->getproductenOverzicht();
+$maxaantal = count($alleproducten);
 $lijst = array();
-$productLijst= array();
-//foreach ($soortenLijst as $soort){
-//    $productLijst= $productSvc1->getproductenpersoort($soort->getId());
-//   array_push($lijst, $productLijst);
-//}
-if (!isset($_GET["action"])){
+$productLijst = array();
+if (!isset($_GET["action"])) {
     $action = null;
-}else
-$action=$_GET["action"];
+} else
+    $action = $_GET["action"];
 if ($action == "bestellingfase1") {
-    try {
-        Gebruikerservice::voegNieuwGebruikerToe($_POST["txtNaam"], $_POST["txtVoornaam"]
-                , $_POST["txtTelefoonnummer"], $_POST["txtEmailadres"], $_POST["txtWoonplaats"]
-                , $_POST["txtPostcode"], $_POST["txtStraat"], $_POST["txtNummer"]);
-        header("location: toonalleproducten.php");
-        exit(0);
-    } catch (EmailadresBestaatException $ebe) {
-        header("location: aanmelden.php?error=emailexists");
-        exit(0);
-    } catch (mailmisluktException $mme) {
-        header("location: aanmelden.php?error=fail2mail");
-        exit(0);
+    $i = 5;
+    print($_GET["aantal[$i]"]);
+    /*if ($i<=$maxaantal){
+        $aantal = $_POST["aantal[$i]"];
+        $aantalarray =array_push($lijst, $aantal); 
+        $i++;
     }
-} else {
-    if(!isset($_GET["error"])){
+    print_r($aantalarray);
+    */}
+ else {
+    if (!isset($_GET["error"])) {
         $error = null;
-    }else
-    $error = $_GET["error"];
+    } else
+        $error = $_GET["error"];
     include("presentation/bestellingpresentation.php");
 }

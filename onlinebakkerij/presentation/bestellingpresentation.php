@@ -1,7 +1,7 @@
 <?php
-$name=0;
+$name = 0;
 $gelukt = gebruikerservice::logincheck();
-if ($gelukt =="loggedin") {
+if ($gelukt == "loggedin") {
     $logged = "in";
 } else {
     $logged = "out";
@@ -43,14 +43,14 @@ if ($gelukt =="loggedin") {
                 color:white;
                 background-color:darkseagreen;
             }
-            
+
         </style>
     </head>
     <body class="home">
         <header>
-            <?php if ($logged=="out") {
+            <?php if ($logged == "out") {
                 ?>
-              <form method="post" action="process_login.php?action=inloggen">
+                <form method="GET" action="process_login.php?action=inloggen">
                     <table>
                         <tr>
                             <td>emailadres:</td>
@@ -72,8 +72,8 @@ if ($gelukt =="loggedin") {
                         </tr>
                     </table>
                 </form>
-            <?php } if ($logged=="in") { ?><h2><a href="logout.php">log out</a></h2><?php
-        } ?>
+            <?php } if ($logged == "in") { ?><h2><a href="logout.php">log out</a></h2><?php }
+            ?>
             <div class="container">
                 <h1><a href="home.php" id="logo">Bakkerij vroman</a></h1>
                 <nav id="kopnav">
@@ -81,14 +81,14 @@ if ($gelukt =="loggedin") {
                         <li><a href="home.php">home</a></li>
                         <li><a href="assortiment.php">ons assortiment</a></li>
                         <li><a href="overons.php">over ons</a></li>
-                            <?php if ($logged == "in") {
-                                ?><li><a href="mijnprofiel.php">mijn profiel</a></li>
-                            <li><a href="bestellingopnemen.php">bestellen</a></li><?php 
-                            } ?>
-                            <?php if ($logged == "out") {
-                                ?><li>mijn profiel</li>
-                            <li>bestellen</li><?php 
-                            } ?>
+                        <?php if ($logged == "in") {
+                            ?><li><a href="mijnprofiel.php">mijn profiel</a></li>
+                            <li><a href="bestellingopnemen.php">bestellen</a></li><?php }
+                        ?>
+                        <?php if ($logged == "out") {
+                            ?><li>mijn profiel</li>
+                            <li>bestellen</li><?php }
+                        ?>
                     </ul>
                 </nav>
             </div>
@@ -96,23 +96,31 @@ if ($gelukt =="loggedin") {
         <section>
             <h1>bestel hier</h1>
             <h2>schrijf naast hetgeen u wil het aantal dat u wil.</h2>
-            <form method="post" action="process_login.php?action=inloggen">
-            <?php 
-             //print_r($lijst);
-            foreach ($soortenLijst as $soort){
-                $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
-                foreach ($productLijst as $product){
-                    $Pid = $productenSvc1->productidmetnaam($product->getNaam());
-                    ?><div class="bestelling"><p><?php print($product->getNaam());?></p>
-                    <p><?php print($product->getPrijs());?></p>
-                    <input type="text" name="aantal<?php$Pid?>"></div>
-            <?php }}?>
-                    <p></p>
+            <form method="post" action="bestellingopnemen.php?action=bestellingfase1">
+                <?php
+                //print_r($lijst);
+                foreach ($soortenLijst as $soort) {
+                    ?> <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
+                    $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
+                    foreach ($productLijst as $product) {
+                        $Pid = $productenSvc1->productidmetnaam($product->getNaam());
+                        ?><div class="bestelling"><p><?php print($product->getNaam()); ?></p>
+                            <p><?php print($product->getPrijs()); ?></p>
+                            <input type="number" value="0" name="aantal[<?php$Pid?>]">
+                            <p>--------------------------</p></div>
+                    <?php }
+                } ?>
+                <p></p>
+                <select name="datum">
+                    <option value="morgen">Morgen</option>
+                    <option value="overmorgen">Overmorgen</option>
+                    <option value="3dagen">binnen 3 dagen</option>
+                </select>
                 <input type="submit" value="bestel!">
             </form>
         </section>
         <footer>
-            
+
         </footer>
     </body>
 </html>
