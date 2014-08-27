@@ -43,6 +43,7 @@ if ($gelukt =="loggedin") {
                 color:white;
                 background-color:darkseagreen;
             }
+            
         </style>
     </head>
     <body class="home">
@@ -97,11 +98,17 @@ if ($gelukt =="loggedin") {
             <h2>schrijf naast hetgeen u wil het aantal dat u wil.</h2>
             <form method="post" action="process_login.php?action=inloggen">
             <?php 
-             print_r($lijst);
-            foreach($lijst as $productarray){
-                print($productarray->$productenLijst->getNaam()+"          " + $product->$productenLijst->getPrijs());?> <input type="text" name="aantal<?php $naam?>">
-            <?php }?>
-                <input type="submit" value="toevoegen">
+             //print_r($lijst);
+            foreach ($soortenLijst as $soort){
+                $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
+                foreach ($productLijst as $product){
+                    $Pid = $productenSvc1->productidmetnaam($product->getNaam());
+                    ?><div class="bestelling"><p><?php print($product->getNaam());?></p>
+                    <p><?php print($product->getPrijs());?></p>
+                    <input type="text" name="aantal<?php$Pid?>"></div>
+            <?php }}?>
+                    <p></p>
+                <input type="submit" value="bestel!">
             </form>
         </section>
         <footer>

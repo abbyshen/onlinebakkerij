@@ -6,13 +6,13 @@ require_once ("business/productservice.php");
 require_once ("exceptions/EmailadresBestaatException.php");
 $soortsvc = new Soortenservice();
 $soortenLijst = $soortsvc->getSoortenOverzicht();
-$productSvc1 = new productservice();
+$productenSvc1 = new productservice();
 $lijst = array();
-$productenLijst= array();
-foreach ($soortenLijst as $soort){
-    $productenLijst= $productSvc1->getproductenpersoort($soort->getId());
-    array_push($lijst, $productenLijst);
-}
+$productLijst= array();
+//foreach ($soortenLijst as $soort){
+//    $productLijst= $productSvc1->getproductenpersoort($soort->getId());
+//   array_push($lijst, $productLijst);
+//}
 if (!isset($_GET["action"])){
     $action = null;
 }else

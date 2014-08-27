@@ -37,6 +37,12 @@ class productservice {
         $product = $productDAO->getBySoortid($soortid);
         return $product;
     }
+    
+    public function productidmetnaam($naam){
+        $productDAO = new productDAO();
+        $productid = $productDAO->getidbyname($naam);
+        return $productid;
+    }
 
     public function updateProduct($id, $naam,$prijs, $soortId) {
         $SoortDAO = new SoortDAO();
