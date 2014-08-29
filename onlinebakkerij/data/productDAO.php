@@ -38,10 +38,12 @@ class productDAO {
     }
     
     public function getidbyname($naam){
-        $lijst = array();
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql ="select product.id as productid from product where naam = " . $naam ." limit 1";
-        $productid = $dbh->exec($sql);
+        $sql ="select product.id as productid from product where naam='".$naam."' limit 1";
+        $resultSet = $dbh->query($sql);
+        $rij = $resultSet->fetch();
+        $productid = $rij["productid"];
+        print($productid);
         return $productid;
     }
 

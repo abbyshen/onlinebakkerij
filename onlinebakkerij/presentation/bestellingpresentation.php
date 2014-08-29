@@ -95,7 +95,7 @@ if ($gelukt == "loggedin") {
         </header>
         <section>
             <h1>bestel hier</h1>
-            <h2>schrijf naast hetgeen u wil het aantal dat u wil.</h2>
+            <h2>schrijf onder hetgeen u wil het aantal dat u wil.</h2>
             <form method="post" action="bestellingopnemen.php?action=bestellingfase1">
                 <?php
                 //print_r($lijst);
@@ -103,10 +103,11 @@ if ($gelukt == "loggedin") {
                     ?> <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
                     $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
                     foreach ($productLijst as $product) {
-                        $Pid = $productenSvc1->productidmetnaam($product->getNaam());
-                        ?><div class="bestelling"><p><?php print($product->getNaam()); ?></p>
+                        $Pnaam = $product->getNaam();
+                        $Pid = $productenSvc1->productidmetnaam($Pnaam);
+                        ?><div class="bestelling"><p><?php print($Pnaam); ?></p>
                             <p><?php print($product->getPrijs()); ?></p>
-                            <input type="number" value="0" name="aantal[<?php$Pid?>]">
+                            <input type="text" value="0" name="aantal<?php echo $Pid?>">
                             <p>--------------------------</p></div>
                     <?php }
                 } ?>

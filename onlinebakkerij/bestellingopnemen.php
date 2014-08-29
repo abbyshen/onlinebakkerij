@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once ("business/gebruikerservice.php");
 require_once ("business/soortservice.php");
@@ -11,24 +12,27 @@ $alleproducten = $productenSvc1->getproductenOverzicht();
 $maxaantal = count($alleproducten);
 $lijst = array();
 $productLijst = array();
+$aantalarray = array();
+$i = 1;
 if (!isset($_GET["action"])) {
     $action = null;
 } else
     $action = $_GET["action"];
 if ($action == "bestellingfase1") {
-    $i = 5;
-    print($_GET["aantal[$i]"]);
-    /*if ($i<=$maxaantal){
-        $aantal = $_POST["aantal[$i]"];
-        $aantalarray =array_push($lijst, $aantal); 
+    while ($i <= $maxaantal) {
+        $aantal = $_POST["aantal$i"];
+        $aantalarray[$i]=$aantal;
         $i++;
     }
     print_r($aantalarray);
-    */}
- else {
-    if (!isset($_GET["error"])) {
-        $error = null;
-    } else
-        $error = $_GET["error"];
-    include("presentation/bestellingpresentation.php");
+    $datum = $_POST["datum"];
+    include ("presentation/bestellingsoverzicht");
 }
+else {
+        if (!isset($_GET["error"])) {
+            $error = null;
+        } else
+            $error = $_GET["error"];
+        include("presentation/bestellingpresentation.php");
+    }
+
