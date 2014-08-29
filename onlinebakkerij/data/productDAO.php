@@ -46,6 +46,24 @@ class productDAO {
         print($productid);
         return $productid;
     }
+    
+    public function getnamebyid($id){
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $sql ="select naam from product where id='".$id."' limit 1";
+        $resultSet = $dbh->query($sql);
+        $rij = $resultSet->fetch();
+        $productnaam = $rij["naam"];
+        return $productnaam;
+    }
+    
+    public function getprijsbyid($id){
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $sql ="select prijs from product where id='".$id."' limit 1";
+        $resultSet = $dbh->query($sql);
+        $rij = $resultSet->fetch();
+        $productprijs = $rij["prijs"];
+        return $productprijs;
+    }
 
     public function getBySoortid($soortid) {
         $lijst = array();

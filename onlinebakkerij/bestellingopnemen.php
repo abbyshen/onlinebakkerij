@@ -14,6 +14,7 @@ $lijst = array();
 $productLijst = array();
 $aantalarray = array();
 $i = 1;
+$ingevuldeproducten = 0;
 if (!isset($_GET["action"])) {
     $action = null;
 } else
@@ -21,12 +22,27 @@ if (!isset($_GET["action"])) {
 if ($action == "bestellingfase1") {
     while ($i <= $maxaantal) {
         $aantal = $_POST["aantal$i"];
+        if ($aantal!=0){
         $aantalarray[$i]=$aantal;
+        $ingevuldeproducten++;
+        }
+        else {$aantalarray[$i]=null;}
         $i++;
     }
-    print_r($aantalarray);
     $datum = $_POST["datum"];
-    include ("presentation/bestellingsoverzicht");
+    $i=1;
+    if($ingevuldeproducten!=0){
+    include("presentation/bestellingsoverzicht.php");}
+    else{header("location:bestellingopnemen.php?error=geenveldeningevult");}
+}
+if ($action== "bestellingfase2")
+{
+    while ($i<=$maxaantal) {
+        $aantal = $_POST["aantal$i"];
+        if ($aantal!=0){
+        $aantalarray[$i]=$aantal;}
+        $i++;
+    }
 }
 else {
         if (!isset($_GET["error"])) {
