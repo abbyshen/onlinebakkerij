@@ -27,11 +27,9 @@ if (!isset($_GET["action"])) {
 } else
     $action = $_GET["action"];
 if ($action == "updateprofiel") {
-    print_r($gebruiker1);
-    print($emailadres);
     $gebruikerSvc->updateGebruiker($_POST["txtNaam"], $_POST["txtVoornaam"], $_POST["txtTelefoonnummer"], $emailadres,
                                     $_POST["txtWoonplaats"],$_POST["txtPostcode"],$_POST["txtStraat"],$_POST["txtNummer"]);
-    print("wordt doorgestuurd");
+    header("location:process_login.php");
     }
  else {
     if (!isset($_GET["error"])) {

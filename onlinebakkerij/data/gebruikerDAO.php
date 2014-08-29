@@ -76,11 +76,6 @@ class gebruikerDAO {
     }
 
     public function update($gebruiker1) {
-        $sql = "select voornaam from gebruiker where emailadres = :email";
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);  
-        $sth = $dbh->prepare($sql);
-        $sth->bindParam(':email', $gebruiker1->getEmailadres());
-        $gebruiker=$sth->execute();
         $sql = "update gebruiker set naam='" . $gebruiker1->getNaam() .
                 "', voornaam='" . $gebruiker1->getVoornaam() .
                 "', wachtwoord='" . $gebruiker1->getWachtwoord() .
@@ -88,7 +83,7 @@ class gebruikerDAO {
                 "', woonplaats='" . $gebruiker1->getWoonplaats() .
                 "', postcode='" . $gebruiker1->getPostcode() .
                 "', straat='" . $gebruiker1->getStraat() .
-                "', nummer'" . $gebruiker1->getNummer() .
+                "', nummer='" . $gebruiker1->getNummer() .
                 "' where emailadres = '".$gebruiker1->getEmailadres()."'";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $dbh->exec($sql);
