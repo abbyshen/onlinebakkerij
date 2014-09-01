@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once ("business/gebruikerservice.php");
 $gebruikerSvc = new gebruikerservice();
@@ -27,11 +28,23 @@ if (!isset($_GET["action"])) {
 } else
     $action = $_GET["action"];
 if ($action == "updateprofiel") {
-    $gebruikerSvc->updateGebruiker($_POST["txtNaam"], $_POST["txtVoornaam"], $_POST["txtTelefoonnummer"], $emailadres,
-                                    $_POST["txtWoonplaats"],$_POST["txtPostcode"],$_POST["txtStraat"],$_POST["txtNummer"]);
+    $gebruikerSvc->updateGebruiker($_POST["txtNaam"], $_POST["txtVoornaam"], $_POST["txtTelefoonnummer"], $emailadres, $_POST["txtWoonplaats"], $_POST["txtPostcode"], $_POST["txtStraat"], $_POST["txtNummer"]);
     header("location:process_login.php");
+}
+if ($action == "updatewachtwoord") {
+    $pass1 = sha1($_POST["nieuwwachtwoord1"]);
+    $pass2 = sha1($_POST["nieuwwachtwoord2"]);
+    $wachtwoord = sha1($_POST["oudwachtwoord"]);
+    if ($pass1 == $pass2 and $pass1 == $wachtwoord) {
+        header("location:mijnprofiel.php?error=foutinw8woord");
     }
- else {
+    if ($pass1 != $pass2){header("location:mijnprofiel.php?error=foutinw8woord12");}
+    if ($pass1 == $pass2 and $wachtwoord != $_SESSION["wachtwoord"]){header("location:mijnprofiel.php?error=foutinoudw");}
+    else{
+        $gebruikerSvc->updateWachtwoord($_SESSION["emailadres"], $pass1);
+        header("location:logout.php");
+    }
+} else {
     if (!isset($_GET["error"])) {
         $error = null;
     } else

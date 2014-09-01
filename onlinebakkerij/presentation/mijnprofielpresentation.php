@@ -115,10 +115,13 @@
                 </table>
             </form>
             <form method="post" action="mijnprofiel.php?action=updatewachtwoord">
-                
+                <?php   if($error == "foutinw8woord"){print("uw nieuw wachtwoord is hetzelfde als uw oud dit mag niet");}
+                        if($error == "foutinw8woord12"){print("wachtwoord 1 en wachtwoord 2 zijn niet gelijk");}
+                        if($error == "foutinoudw"){print("uw oude wachtwoord is niet correct");}
+                        ?><p></p>
                 <label>nieuw wachtwoord</label><input type="password" name="nieuwwachtwoord1">
                 <label>nieuw wachtwoord</label><input type="password" name="nieuwwachtwoord2">
-                <label>huidig wachtwoord<input type="password" name="oudwachtwoord1">
+                <label>huidig wachtwoord<input type="password" name="oudwachtwoord">
                 <input type="submit" value="wachtwoord veranderen" />
             </form>
             

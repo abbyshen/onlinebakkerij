@@ -43,6 +43,13 @@ class gebruikerservice {
         $gebruikerDAO->update($gebruiker1);
     }
     
+    public function updateWachtwoord($emailadres,$pass1){
+        $gebruikerDAO = new gebruikerDAO();
+        $gebruiker1 = self::haalGebruikerOpemailadres($emailadres);
+        $gebruiker1->setWachtwoord($pass1);
+        $gebruikerDAO->update($gebruiker1);
+    }
+
     public function loggebruikerin($emailadres,$wachtwoord){
         $gebruikerDAO = new gebruikerDAO();
         //$gebruikerDAO->checkbrute($gebruikerid);
