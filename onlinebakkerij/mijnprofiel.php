@@ -1,8 +1,13 @@
 <?php
 
 session_start();
+require_once ("business/productservice.php");
 require_once ("business/gebruikerservice.php");
+require_once ("business/bestellingservice.php");
+$productsvc = new productservice();
+$alleproducten = $productsvc->getproductenOverzicht();
 $gebruikerSvc = new gebruikerservice();
+$bestellingsvc = new bestellingservice();
 
 $name = 0;
 $gelukt = gebruikerservice::logincheck();
@@ -10,6 +15,7 @@ if ($gelukt == "loggedin") {
     $logged = "in";
     $emailadres = $_SESSION["emailadres"];
     $gebruiker1 = $gebruikerSvc->haalgebruikeropemailadres($emailadres);
+    $gebruikerid = $gebruiker1->getId();
     $naam = $gebruiker1->getNaam();
     $voornaam = $gebruiker1->getVoornaam();
     $telefoonnummer = $gebruiker1->getTelefoonnummer();
@@ -17,6 +23,10 @@ if ($gelukt == "loggedin") {
     $postcode = $gebruiker1->getPostcode();
     $straat = $gebruiker1->getStraat();
     $nummer = $gebruiker1->getNummer();
+    $bestellingen = $bestellingsvc->bestellingterug($gebruikerid);
+    $maxbestellingen = count($bestellingen);
+    $maxaantal = count($alleproducten);
+    $i = 1;$j = 1;
 } else {
     $logged = "out";
     $emailadres = "";

@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -115,15 +113,39 @@
                 </table>
             </form>
             <form method="post" action="mijnprofiel.php?action=updatewachtwoord">
-                <?php   if($error == "foutinw8woord"){print("uw nieuw wachtwoord is hetzelfde als uw oud dit mag niet");}
-                        if($error == "foutinw8woord12"){print("wachtwoord 1 en wachtwoord 2 zijn niet gelijk");}
-                        if($error == "foutinoudw"){print("uw oude wachtwoord is niet correct");}
-                        ?><p></p>
+                <?php
+                if ($error == "foutinw8woord") {
+                    print("uw nieuw wachtwoord is hetzelfde als uw oud dit mag niet");
+                }
+                if ($error == "foutinw8woord12") {
+                    print("wachtwoord 1 en wachtwoord 2 zijn niet gelijk");
+                }
+                if ($error == "foutinoudw") {
+                    print("uw oude wachtwoord is niet correct");
+                }
+                ?><p></p>
                 <label>nieuw wachtwoord</label><input type="password" name="nieuwwachtwoord1">
                 <label>nieuw wachtwoord</label><input type="password" name="nieuwwachtwoord2">
                 <label>huidig wachtwoord<input type="password" name="oudwachtwoord">
-                <input type="submit" value="wachtwoord veranderen" />
+                    <input type="submit" value="wachtwoord veranderen" />
             </form>
-            
+            <div>
+                <?php
+                    print_r($bestellingen);
+                    $aantalarray = unserialize($bestellingen->getAantal());
+                    print($aantalarray);
+                    while ($i <= $maxaantal) {
+                        if ($aantalarray[$i] != 0) {
+                            $productnaam = $productenSvc1->productnaammetid($i);
+                            $productprijs = $productenSvc1->productprijsmetid($i);
+                            $prijs = $productprijs * $aantalarray[$i];
+                            ?><p>artikelnaam : <?php echo $productnaam ?> aantal: <?php echo $aantalarray[$i] ?> prijs: <?php echo $prijs ?>€</p>
+            <?php
+        }
+        $i++;
+    } 
+?>
+            </div>
+
         </section>
     </body>

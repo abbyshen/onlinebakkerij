@@ -29,5 +29,16 @@ class bestellingDAO{
         $bestellingid = $rij["bestellingid"];
         return $bestellingid;
         }
+        
+        public function getbestellingmetid($gebruikerid){
+         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $sql = "select bestellingid,datum,aantalser from bestelling where gebruikerid ='".$gebruikerid."'";
+        $resultSet = $dbh->query($sql);
+        foreach ($resultSet as  $rij){
+        $bestelling = bestelling::create($rij["bestellingid"], $gebruikerid, $rij["datum"], $rij["aantalser"]);
+        array_push($lijst, $bestelling);}
+        $dbh=null;
+        return $lijst;
+        }
 }
 

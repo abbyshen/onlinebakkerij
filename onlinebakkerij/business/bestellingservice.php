@@ -8,5 +8,11 @@ class bestellingservice{
         $gelukt=$bestellingdao->create($gebruikerid, $datum, $aantalser);
         return $gelukt;
     }
+    
+    public function bestellingterug($gebruikerid){
+        $bestellingdao = new bestellingDAO();
+        $bestelling = $bestellingdao->getbestellingmetid($gebruikerid);
+        return $bestelling;
+    }
 }
 

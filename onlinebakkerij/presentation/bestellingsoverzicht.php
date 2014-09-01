@@ -96,17 +96,22 @@ if ($gelukt == "loggedin") {
         <section>
             <h1>is uw bestelling in orde?</h1>
             <form method="post" action="bestellingopnemen.php?action=bestellingfase2">
-                <?php while($i<=$maxaantal){
+                <?php 
+                while ($j<=$maxbestellingen){
+                    print($bestellingen->$bestelling->getID());
+                while($i<=$maxaantal){
                     if ($aantalarray[$i]!=0){
                         $productnaam = $productenSvc1->productnaammetid($i);
                         $productprijs = $productenSvc1->productprijsmetid($i);
                         $prijs = $productprijs * $aantalarray[$i];
+                        $prijstot = $prijstot + $prijs;
                         ?><p>artikelnaam : <?php echo $productnaam?> aantal: <?php echo $aantalarray[$i]?> prijs: <?php echo $prijs?>€</p>
                         <?php
                     }
                     $i++;
-                }?>
+                } $j++;}?>
                         <p>dit is uw bestelling voor <?php echo $datum?></p>
+                        <p>de totale prijs bedraagt <?php echo $prijstot?>€</p>
                 <input type="submit" value="in orde!">
             </form>
             <form method="post" action="bestellingopnemen.php">
