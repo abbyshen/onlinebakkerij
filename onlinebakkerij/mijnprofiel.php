@@ -8,7 +8,6 @@ $productsvc = new productservice();
 $alleproducten = $productsvc->getproductenOverzicht();
 $gebruikerSvc = new gebruikerservice();
 $bestellingsvc = new bestellingservice();
-
 $name = 0;
 $gelukt = gebruikerservice::logincheck();
 if ($gelukt == "loggedin") {
