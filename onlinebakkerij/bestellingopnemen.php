@@ -31,18 +31,19 @@ if ($action == "bestellingfase1") {
     }
     $datum = $_POST["datum"];
     $i=1;
+    $_SESSION['datum']=$datum;
+    $_SESSION['aantalarray']=$aantalarray;
     if($ingevuldeproducten!=0){
     include("presentation/bestellingsoverzicht.php");}
     else{header("location:bestellingopnemen.php?error=geenveldeningevult");}
-}
+} else{
 if ($action== "bestellingfase2")
 {
-    while ($i<=$maxaantal) {
-        $aantal = $_POST["aantal$i"];
-        if ($aantal!=0){
-        $aantalarray[$i]=$aantal;}
-        $i++;
-    }
+    $aantalarray = $_SESSION['aantalarray'];
+    $datum = $_SESSION['datum'];
+    print_r($aantalarray);
+    print($datum);
+
 }
 else {
         if (!isset($_GET["error"])) {
@@ -51,4 +52,5 @@ else {
             $error = $_GET["error"];
         include("presentation/bestellingpresentation.php");
     }
+}
 

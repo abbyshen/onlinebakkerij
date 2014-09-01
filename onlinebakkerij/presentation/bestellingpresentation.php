@@ -96,7 +96,7 @@ if ($gelukt == "loggedin") {
         <section>
             <h1>bestel hier</h1>
             <h2>schrijf onder hetgeen u wil het aantal dat u wil.</h2>
-            <form method="post" action="bestellingopnemen.php?action=bestellingfase1">
+            <form method="post" action="bestellingopnemen.php?action=bestellingfase1&aantalarray=<?php $aantalarray ?>">
                 <?php
                 //print_r($lijst);
                 foreach ($soortenLijst as $soort) {
