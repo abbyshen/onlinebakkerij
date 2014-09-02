@@ -2,6 +2,7 @@
 
 require_once("data/dbconfig.php");
 require_once("entities/gebruiker.php");
+$bestaandgebruiker = null;
 
 class gebruikerDAO {
 
@@ -52,20 +53,21 @@ class gebruikerDAO {
 
     public function create($naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
     , $woonplaats, $postcode, $straat, $nummer, $geblokkeerd) {
-        $bestaandemailadres = $this->getByemailadres($emailadres);
-        if (isset($bestaandemailadres))
-            throw new EmailadresBestaatException();
+        $bestaandgebruiker = $this->getByemailadres($emailadres);
+        if ($bestaandgebruiker->getId()==0){
         $sql = "insert into gebruiker (naam, voornaam, wachtwoord, telefoonnummer, emailadres
                                 ,woonplaats, postcode, straat, nummer,geblokkeerd)
                 values ('" . $naam . "', '" . $voornaam . "','" . $wachtwoord . "','" . $telefoonnummer . "','"
                 . $emailadres . "','" . $woonplaats . "','" . $postcode . "','" . $straat . "','" . $nummer . "','" . $geblokkeerd . "')";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $dbh->exec($sql);
-        /* $gebruikersId = $dbh->lastInsertId(); */
+        $gebruikersId = $dbh->lastInsertId(); 
         $dbh = null;
-        $gebruiker = gebruiker::create($naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
+        $gebruiker = gebruiker::create($gebruikersId,$naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
                         , $woonplaats, $postcode, $straat, $nummer, $geblokkeerd);
-        return $gebruiker;
+        return $gebruiker;}else{    throw new EmailadresBestaatException();}
+        
+        
     }
 
     public function delete($id) {
@@ -125,25 +127,6 @@ class gebruikerDAO {
             }
         }
     }
-
-    /* public function checkbrute($gebruikerid) {
-      $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-      // Get timestamp of current time
-      $now = time();
-
-      // All login attempts are counted from the past 2 hours.
-      $valid_attempts = $now - (2 * 60 * 60);
-
-      $sql = "SELECT time FROM login_attempts WHERE gebruikerid = '$gebruikerid' AND time > '$valid_attempts'";
-      $resultSet = $dbh->query($sql);
-      $rij = $resultSet->fetch();
-      $dbh->exec($sql);
-
-      // If there have been more than 7 failed logins
-      if ($resultSet > 7) {
-      $dbh->exec("update gebruiker set geblokeerd = true where gebruikerid = '$gebruikerid'");
-      }
-      } */
 
     public function login_check() {
         // Check if all session variables are set 

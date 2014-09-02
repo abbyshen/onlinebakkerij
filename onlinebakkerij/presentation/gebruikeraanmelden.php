@@ -4,6 +4,16 @@
         <meta charset=utf-8>
         <title>aanmelden</title>
         <style>
+            input:required:invalid, input:focus:invalid {
+                background-image: url(images/invalid.png);
+                background-position: right top;
+                background-repeat: no-repeat;
+            }
+            input:required:valid {
+                background-image: url(images/valid.png);
+                background-position: right top;
+                background-repeat: no-repeat;
+            }
             #hoofdmenu {
                 list-style: none;
                 font-size: 0.875em; /* 14px = 1em */
@@ -58,65 +68,65 @@
             ?>
             <p style="color: red">er is een fout met het emailadres probeer het met een ander emailadres</p>
             <?php
-            }
+        }
         ?>
-        <form method="post" action="aanmelden.php?action=process">
-            <table>
-                <tr>
-                    <td>naam:</td>
-                    <td>
-                        <input type="text" name="txtNaam">
-                    </td>
-                </tr>
-                <tr>
-                    <td>voornaam:</td>
-                    <td>
-                        <input type="text" name="txtVoornaam"
-                    </td>
-                </tr>
-                <tr>
-                    <td>telefoonnummer:</td>
-                    <td>
-                        <input type="text" name="txtTelefoonnummer"
-                    </td>
-                </tr>
-                <tr>
-                    <td>emailadres:</td>
-                    <td>
-                        <input type="text" name="txtEmailadres"
-                    </td>
-                </tr>
-                <tr>
-                    <td>woonplaats:</td>
-                    <td>
-                        <input type="text" name="txtWoonplaats"
-                    </td>
-                </tr>
-                <tr>
-                    <td>postcode:</td>
-                    <td>
-                        <input type="text" name="txtPostcode"
-                    </td>
-                </tr>
-                <tr>
-                    <td>straat:</td>
-                    <td>
-                        <input type="text" name="txtStraat"
-                    </td>
-                </tr>
-                <tr>
-                    <td>nummer:</td>
-                    <td>
-                        <input type="text" name="txtNummer"
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="Toevoegen">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </body>
+        <form method="post" action="aanmelden.php?action=process" />
+        <table>
+            <tr>
+                <td>naam:</td>
+                <td>
+                    <input type="text" name="txtNaam" required />
+                </td>
+            </tr>
+            <tr>
+                <td>voornaam:</td>
+                <td>
+                    <input type="text" name="txtVoornaam" required />
+                </td>
+            </tr>
+            <tr>
+                <td>telefoonnummer:</td>
+                <td>
+                    <input type="text" name="txtTelefoonnummer" />
+                </td>
+            </tr>
+            <tr>
+                <td>emailadres:</td>
+                <td>
+                    <input type="email" name="txtEmailadres" required>
+                </td>
+            </tr>
+            <tr>
+                <td>woonplaats:</td>
+                <td>
+                    <input type="text" name="txtWoonplaats" />
+                </td>
+            </tr>
+            <tr>
+                <td>postcode:</td>
+                <td>
+                    <input type="text" name="txtPostcode" />
+                </td>
+            </tr>
+            <tr>
+                <td>straat:</td>
+                <td>
+                    <input type="text" name="txtStraat" />
+                </td>
+            </tr>
+            <tr>
+                <td>nummer:</td>
+                <td>
+                    <input type="text" name="txtNummer" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Toevoegen" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
 </html>
