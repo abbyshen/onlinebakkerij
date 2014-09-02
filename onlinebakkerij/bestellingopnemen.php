@@ -66,6 +66,7 @@ if ($action == "bestellingfase1") {
         if($gelukt!=1){$_GET["error"] = "er is die datum al iets bestelt";
         header("location:bestellingopnemen.php");
         }
+        header("location:home.php");
     } else {
         if (!isset($_GET["error"])) {
             $error = null;

@@ -25,7 +25,7 @@ if ($gelukt == "loggedin") {
     $bestellingen = $bestellingsvc->bestellingterug($gebruikerid);
     $maxbestellingen = count($bestellingen);
     $maxaantal = count($alleproducten);
-    $i = 1;$j = 1;
+    $i = 1;$j = 0;
 } else {
     $logged = "out";
     $emailadres = "";

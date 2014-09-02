@@ -97,8 +97,7 @@ if ($gelukt == "loggedin") {
             <h1>is uw bestelling in orde?</h1>
             <form method="post" action="bestellingopnemen.php?action=bestellingfase2">
                 <?php 
-                while ($j<=$maxbestellingen){
-                    print($bestellingen->$bestelling->getID());
+                $prijstot = 0;
                 while($i<=$maxaantal){
                     if ($aantalarray[$i]!=0){
                         $productnaam = $productenSvc1->productnaammetid($i);
@@ -109,7 +108,7 @@ if ($gelukt == "loggedin") {
                         <?php
                     }
                     $i++;
-                } $j++;}?>
+                }?>
                         <p>dit is uw bestelling voor <?php echo $datum?></p>
                         <p>de totale prijs bedraagt <?php echo $prijstot?>€</p>
                 <input type="submit" value="in orde!">

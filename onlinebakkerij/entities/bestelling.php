@@ -19,18 +19,18 @@ class bestelling {
     }
     
     public function getBestellingID(){
-        $bestellingid = $this->bestellingid;
+        return $bestellingid = $this->bestellingid;
     }
     
     public function getGebruikerID(){
-        $gebruikerid = $this->gebruikerid;
+        return $gebruikerid = $this->gebruikerid;
     }
     public function getDatum(){
-        $datum = $this->datum;
+        return $datum = $this->datum;
     }
     
     public function getAantal(){
-        $aantalser = $this->aantalser;
+        return $aantalser = $this->aantalser;
     }
 
     public function setAantal($aantalser){

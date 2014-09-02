@@ -131,18 +131,18 @@
             </form>
             <div>
                 <?php
-                    print_r($bestellingen);
-                    $aantalarray = unserialize($bestellingen->getAantal());
-                    print($aantalarray);
+                    while ($j < $maxbestellingen){
+                    $aantalarray = unserialize($bestellingen[$j]->getAantal());
+                    print("bestelling:");print($j+1);
                     while ($i <= $maxaantal) {
                         if ($aantalarray[$i] != 0) {
-                            $productnaam = $productenSvc1->productnaammetid($i);
-                            $productprijs = $productenSvc1->productprijsmetid($i);
+                            $productnaam = $productsvc->productnaammetid($i);
+                            $productprijs = $productsvc->productprijsmetid($i);
                             $prijs = $productprijs * $aantalarray[$i];
                             ?><p>artikelnaam : <?php echo $productnaam ?> aantal: <?php echo $aantalarray[$i] ?> prijs: <?php echo $prijs ?>€</p>
             <?php
-        }
-        $i++;
+        } 
+                    $i++;} $j++;
     } 
 ?>
             </div>
