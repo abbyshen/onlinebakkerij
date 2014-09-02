@@ -132,23 +132,47 @@
             <div>
                 <p></p>
                 <?php
-                
-                    while ($j < $maxbestellingen){
-                    $aantalarray = unserialize($bestellingen[$j]->getAantal());
-                    print("bestelling:");print($j+1);
-                    while ($i <= $maxaantal) {
-                        if ($aantalarray[$i] != 0) {
-                            $productnaam = $productsvc->productnaammetid($i);
-                            $productprijs = $productsvc->productprijsmetid($i);
-                            $prijs = $productprijs * $aantalarray[$i];
-                            ?><p>artikelnaam : <?php echo $productnaam ?> aantal: <?php echo $aantalarray[$i] ?> prijs: <?php echo $prijs ?>€</p>
-            <?php
-        } 
-                    $i++;} 
-                    print("datum afhalen: "); print($bestellingen[$j]->getDatum());
-                    $j++;
-    } 
-?>
+                if ($maxbestellingen == 0) {
+                    print("er zijn geen bestellingen voor de volgende 3 dagen");
+                } else {
+                    while ($j < $maxbestellingen) {
+                        $datum = $bestellingen[$j]->getDatum();
+                        $datetime = new DateTime();
+                        $datetime->format('Y-m-d');
+                        $date = $datetime->format('Y-m-d');
+                        $datetime->modify('+1 day');
+                        $date1 = $datetime->format('Y-m-d');
+                        $datetime->modify('+1 day');
+                        $date2 = $datetime->format('Y-m-d');
+                        $datetime->modify('+1 day');
+                        $date3 = $datetime->format('Y-m-d');
+                        if ($datum == $date or $datum == $date1 or $datum == $date2 or $datum == $date3) {
+                            ?><form method="post" action="mijnprofiel.php?action=bestellingverwijderen&datum=<?php echo ("$datum") ?>"> <?php
+                                $aantalarray = unserialize($bestellingen[$j]->getAantal());
+                                print("bestelling:");
+                                print($j + 1);
+                                while ($i <= $maxaantal) {
+                                    if ($aantalarray[$i] != 0) {
+                                        $productnaam = $productsvc->productnaammetid($i);
+                                        $productprijs = $productsvc->productprijsmetid($i);
+                                        $prijs = $productprijs * $aantalarray[$i];
+                                        ?><p>artikelnaam : <?php echo $productnaam ?> aantal: <?php echo $aantalarray[$i] ?> prijs: <?php echo $prijs ?>€</p>
+                                        <?php
+                                    }
+                                    $i++;
+                                }
+                                print("datum afhalen: ");
+                                print($datum);
+                                ?><p></p><?php
+                                if($datum==$date){print("deze bestelling kan u niet meer anuleren");} else {
+                                ?><p></p><input type="submit" value="bestelling annuleren" /> <?php } ?>
+                            </form><?php
+                        } else{ bestellingservice::bestellingverwijderen($datum,$_SESSION["gebruikerid"]);}
+                        $j++;
+                        $i = 1;
+                    }
+                }
+                ?>
             </div>
 
         </section>

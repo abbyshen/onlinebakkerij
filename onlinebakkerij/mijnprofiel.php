@@ -53,7 +53,14 @@ if ($action == "updatewachtwoord") {
         $gebruikerSvc->updateWachtwoord($_SESSION["emailadres"], $pass1);
         header("location:logout.php");
     }
-} else {
+}
+if ($action =="bestellingverwijderen"){
+    $date = $_GET["datum"];
+    $gebruikerid = $_SESSION["gebruikerid"];
+    $bestellingsvc->bestellingverwijderen($date,$gebruikerid);
+    header("location:mijnprofiel.php");
+}
+else {
     if (!isset($_GET["error"])) {
         $error = null;
     } else

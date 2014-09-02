@@ -19,5 +19,10 @@ class bestellingservice {
         $bestelling = $bestellingdao->getbestellingmetid($gebruikerid);
         return $bestelling;
     }
+    
+    public function bestellingverwijderen($date,$gebruikerid){
+        $bestellingdao = new bestellingDAO();
+        $bestellingdao->deletebestelling($date,$gebruikerid);
+    }
 
 }

@@ -67,7 +67,7 @@ if ($action == "bestellingfase1") {
             $error = "datumalingebruik";
             header("location:bestellingopnemen.php?error=$error");
         } else {
-            header("home.php");
+            header("location:home.php");
         }
     } else {
         if (!isset($_GET["error"])) {

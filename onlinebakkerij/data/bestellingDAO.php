@@ -46,5 +46,12 @@ class bestellingDAO {
         $dbh = null;
         return $lijst;
     }
+    
+    public function deletebestelling($date,$gebruikerid){
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $sql = "delete from bestelling where gebruikerid ='" . $gebruikerid . "' and datum='".$date."'";
+        $dbh->exec($sql);
+        $dbh=null;
+    }
 
 }
