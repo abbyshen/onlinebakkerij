@@ -66,7 +66,9 @@ if ($action == "bestellingfase1") {
         if ($gelukt != 1) {
             $error = "datumalingebruik";
             header("location:bestellingopnemen.php?error=$error");
-        }  else {header("home.php");}
+        } else {
+            header("home.php");
+        }
     } else {
         if (!isset($_GET["error"])) {
             $error = null;

@@ -98,8 +98,9 @@ if ($gelukt == "loggedin") {
             <h2>schrijf onder hetgeen u wil het aantal dat u wil.</h2>
             <form method="post" action="bestellingopnemen.php?action=bestellingfase1&aantalarray=<?php $aantalarray ?>">
                 <?php
-                //print_r($lijst);
-                if (isset($error) and $error == "datumalingebruik"){print("u heeft op die datum al iets bestelt, ga naar mijn profiel om het te bekijken");}
+                if (isset($error) and $error == "datumalingebruik") {
+                    print("u heeft op die datum al iets bestelt, ga naar mijn profiel om het te bekijken");
+                }
                 foreach ($soortenLijst as $soort) {
                     ?> <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
                     $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
@@ -108,10 +109,11 @@ if ($gelukt == "loggedin") {
                         $Pid = $productenSvc1->productidmetnaam($Pnaam);
                         ?><div class="bestelling"><p><?php print($Pnaam); ?></p>
                             <p><?php print($product->getPrijs()); ?></p>
-                            <input type="text" value="0" name="aantal<?php echo $Pid?>">
+                            <input type="text" value="0" name="aantal<?php echo $Pid ?>">
                             <p>--------------------------</p></div>
-                    <?php }
-                } ?>
+    <?php }
+}
+?>
                 <p></p>
                 <select name="datum">
                     <option value="morgen">Morgen</option>
