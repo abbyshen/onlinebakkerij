@@ -62,11 +62,11 @@ if ($action == "bestellingfase1") {
             $datum = $datetime->format('Y-m-d');
         }
         $aantalser = serialize($aantalarray);
-        $gelukt=$bestellingsvc->bestellingplaatsen($gebruikerid, $datum, $aantalser);
-        if($gelukt!=1){$_GET["error"] = "er is die datum al iets bestelt";
-        header("location:bestellingopnemen.php");
-        }
-        header("location:home.php");
+        $gelukt = $bestellingsvc->bestellingplaatsen($gebruikerid, $datum, $aantalser);
+        if ($gelukt != 1) {
+            $error = "datumalingebruik";
+            header("location:bestellingopnemen.php?error=$error");
+        }  else {header("home.php");}
     } else {
         if (!isset($_GET["error"])) {
             $error = null;

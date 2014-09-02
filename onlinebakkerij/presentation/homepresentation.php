@@ -69,6 +69,7 @@ if ($gelukt =="loggedin") {
                         </tr>
                     </table>
                 </form>
+            <a href="aanmelden.php"> aanmelden </a>
             <?php } if ($logged=="in") { ?><h2><a href="logout.php">log out</a></h2><?php
         } ?>
             <div class="container">

@@ -1,19 +1,16 @@
 <?php
-$name = 0;
 $gelukt = gebruikerservice::logincheck();
-if ($gelukt == "loggedin") {
+if ($gelukt =="loggedin") {
     $logged = "in";
 } else {
     $logged = "out";
-    header("location:process_login.php");
 }
 ?>
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta charset=utf-8 />
-
-        <title>bakkerij vroman</title>
+        <meta charset=utf-8>
+        <title>assortiment</title>
         <style>
             #hoofdmenu {
                 list-style: none;
@@ -43,14 +40,12 @@ if ($gelukt == "loggedin") {
                 color:white;
                 background-color:darkseagreen;
             }
-
         </style>
     </head>
-    <body class="home">
-        <header>
-            <?php if ($logged == "out") {
+    <header>
+            <?php if ($logged=="out") {
                 ?>
-                <form method="GET" action="process_login.php?action=inloggen">
+              <form method="post" action="process_login.php?action=inloggen">
                     <table>
                         <tr>
                             <td>emailadres:</td>
@@ -72,8 +67,9 @@ if ($gelukt == "loggedin") {
                         </tr>
                     </table>
                 </form>
-            <?php } if ($logged == "in") { ?><h2><a href="logout.php">log out</a></h2><?php }
-            ?>
+            <a href="aanmelden.php"> aanmelden </a>
+            <?php } if ($logged=="in") { ?><h2><a href="logout.php">log out</a></h2><?php
+        } ?>
             <div class="container">
                 <h1><a href="home.php" id="logo">Bakkerij vroman</a></h1>
                 <nav id="kopnav">
@@ -81,48 +77,33 @@ if ($gelukt == "loggedin") {
                         <li><a href="home.php">home</a></li>
                         <li><a href="assortiment.php">ons assortiment</a></li>
                         <li><a href="overons.php">over ons</a></li>
-                        <?php if ($logged == "in") {
-                            ?><li><a href="mijnprofiel.php">mijn profiel</a></li>
-                            <li><a href="bestellingopnemen.php">bestellen</a></li><?php }
-                        ?>
-                        <?php if ($logged == "out") {
-                            ?><li>mijn profiel</li>
-                            <li>bestellen</li><?php }
-                        ?>
+                            <?php if ($logged == "in") {
+                                ?><li><a href="mijnprofiel.php">mijn profiel</a></li>
+                            <li><a href="bestellingopnemen.php">bestellen</a></li><?php 
+                            } ?>
+                            <?php if ($logged == "out") {
+                                ?><li>mijn profiel</li>
+                            <li>bestellen</li><?php 
+                            } ?>
                     </ul>
                 </nav>
             </div>
         </header>
-        <section>
-            <h1>bestel hier</h1>
-            <h2>schrijf onder hetgeen u wil het aantal dat u wil.</h2>
-            <form method="post" action="bestellingopnemen.php?action=bestellingfase1&aantalarray=<?php $aantalarray ?>">
-                <?php
-                //print_r($lijst);
-                if (isset($error) and $error == "datumalingebruik"){print("u heeft op die datum al iets bestelt, ga naar mijn profiel om het te bekijken");}
-                foreach ($soortenLijst as $soort) {
+    <body>
+        <h1>assortiment</h1>
+        <?php 
+        foreach ($soortenLijst as $soort) {
                     ?> <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
                     $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
                     foreach ($productLijst as $product) {
                         $Pnaam = $product->getNaam();
-                        $Pid = $productenSvc1->productidmetnaam($Pnaam);
                         ?><div class="bestelling"><p><?php print($Pnaam); ?></p>
-                            <p><?php print($product->getPrijs()); ?></p>
-                            <input type="text" value="0" name="aantal<?php echo $Pid?>">
+                            <p><?php print($product->getPrijs());print("€"); ?></p>
                             <p>--------------------------</p></div>
                     <?php }
-                } ?>
-                <p></p>
-                <select name="datum">
-                    <option value="morgen">Morgen</option>
-                    <option value="overmorgen">Overmorgen</option>
-                    <option value="3dagen">binnen 3 dagen</option>
-                </select>
-                <input type="submit" value="bestel!">
-            </form>
-        </section>
-        <footer>
-
-        </footer>
+                }
+            ?>
+        </table>
     </body>
 </html>
+

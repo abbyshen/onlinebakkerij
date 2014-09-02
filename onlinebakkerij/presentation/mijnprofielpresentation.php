@@ -130,7 +130,9 @@
                     <input type="submit" value="wachtwoord veranderen" />
             </form>
             <div>
+                <p></p>
                 <?php
+                
                     while ($j < $maxbestellingen){
                     $aantalarray = unserialize($bestellingen[$j]->getAantal());
                     print("bestelling:");print($j+1);
@@ -142,7 +144,9 @@
                             ?><p>artikelnaam : <?php echo $productnaam ?> aantal: <?php echo $aantalarray[$i] ?> prijs: <?php echo $prijs ?>€</p>
             <?php
         } 
-                    $i++;} $j++;
+                    $i++;} 
+                    print("datum afhalen: "); print($bestellingen[$j]->getDatum());
+                    $j++;
     } 
 ?>
             </div>
