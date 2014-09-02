@@ -69,6 +69,11 @@
             <p style="color: red">er is een fout met het emailadres probeer het met een ander emailadres</p>
             <?php
         }
+        if ($error == "dtbfail") {
+            ?>
+            <p style="color: red">alles met ingevuld zijn</p>
+            <?php
+        }
         ?>
         <form method="post" action="aanmelden.php?action=process" />
         <table>
@@ -87,7 +92,7 @@
             <tr>
                 <td>telefoonnummer:</td>
                 <td>
-                    <input type="text" name="txtTelefoonnummer" />
+                    <input type="text" name="txtTelefoonnummer" required />
                 </td>
             </tr>
             <tr>
@@ -99,31 +104,31 @@
             <tr>
                 <td>woonplaats:</td>
                 <td>
-                    <input type="text" name="txtWoonplaats" />
+                    <input type="text" name="txtWoonplaats" required/>
                 </td>
             </tr>
             <tr>
                 <td>postcode:</td>
                 <td>
-                    <input type="text" name="txtPostcode" />
+                    <input type="text" name="txtPostcode" required/>
                 </td>
             </tr>
             <tr>
                 <td>straat:</td>
                 <td>
-                    <input type="text" name="txtStraat" />
+                    <input type="text" name="txtStraat" required/>
                 </td>
             </tr>
             <tr>
                 <td>nummer:</td>
                 <td>
-                    <input type="text" name="txtNummer" />
+                    <input type="text" name="txtNummer" required/>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <input type="submit" value="Toevoegen" />
+                    <input type="submit" value="Toevoegen" required/>
                 </td>
             </tr>
         </table>

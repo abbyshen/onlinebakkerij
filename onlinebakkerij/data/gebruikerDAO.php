@@ -60,8 +60,9 @@ class gebruikerDAO {
                 values ('" . $naam . "', '" . $voornaam . "','" . $wachtwoord . "','" . $telefoonnummer . "','"
                 . $emailadres . "','" . $woonplaats . "','" . $postcode . "','" . $straat . "','" . $nummer . "','" . $geblokkeerd . "')";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $dbh->exec($sql);
-        $gebruikersId = $dbh->lastInsertId(); 
+        $test = $dbh->exec($sql);
+        if($test==null){throw new allesmoetingevultzijnexception();}
+        $gebruikersId = $dbh->lastInsertId();
         $dbh = null;
         $gebruiker = gebruiker::create($gebruikersId,$naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
                         , $woonplaats, $postcode, $straat, $nummer, $geblokkeerd);

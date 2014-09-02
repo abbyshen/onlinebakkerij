@@ -7,8 +7,7 @@ class gebruikerservice {
         $gebruikerDao= new gebruikerDAO();
         $wachtwoord= $gebruikerDao->randomPassword($emailadres);
         $geblokkeerd = false;
-        $gebruikerDAO = new gebruikerDAO();
-        $gebruikerDAO->create($naam, $voornaam,$wachtwoord,$telefoonnummer,$emailadres,$woonplaats
+        return $gebruikerDao->create($naam, $voornaam,$wachtwoord,$telefoonnummer,$emailadres,$woonplaats
                                 ,$postcode,$straat,$nummer,$geblokkeerd);
     }
 
