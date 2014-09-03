@@ -14,33 +14,59 @@
                 background-position: right top;
                 background-repeat: no-repeat;
             }
-            #hoofdmenu {
+            /*#hoofdmenu {
                 list-style: none;
                 font-size: 0.875em; /* 14px = 1em */
-                font-weight: bold;
-                padding: 0; /* 0.5em = 6px */
-                margin: 0 1em;
-                width:auto;
+            /*font-weight: bold;
+            padding: 0; /* 0.5em = 6px */
+            /*margin: 0 1em;
+            width:auto;
+        }
+        #hoofdmenu li:nth-child(1n+0) {
+            width: 16.4%;
+            padding:0.3em 0;
+            border-top: 1px solid LavenderBlush;
+            border-right: 1px solid LavenderBlush;
+            border-bottom: none;
+            border-left: none;
+            text-align: center;
+        }
+        #hoofdmenu li:first-child {
+            border-left:1px solid LavenderBlush;
+        }
+        #hoofdmenu a {
+            display: inline;
+            cursor: pointer;
+        }
+        #hoofdmenu li:hover {
+            color:white;
+            background-color:darkseagreen;
+        }*/
+            #kopnav {
+                padding:0;
             }
-            #hoofdmenu li:nth-child(1n+0) {
-                width: 16.4%;
-                padding:0.3em 0;
-                border-top: 1px solid LavenderBlush;
-                border-right: 1px solid LavenderBlush;
-                border-bottom: none;
-                border-left: none;
-                text-align: center;
+            #kopnav li {
+                display:inline;
             }
-            #hoofdmenu li:first-child {
-                border-left:1px solid LavenderBlush;
+            #kopnav li a{
+                font-family:Arial;
+                font-size:12px;
+                text-decoration: none;
+                float:left;
+                padding:10px;
+                background-color: #333333;
+                color:#ffffff;
+                border-bottom:1px;
+                border-bottom-color:#000000;
+                border-bottom-style:solid;
             }
-            #hoofdmenu a {
-                display: inline;
-                cursor: pointer;
-            }
-            #hoofdmenu li:hover {
-                color:white;
-                background-color:darkseagreen;
+            #kopnav li a:hover {
+                background-color:#9B1C26;
+                padding-bottom:12px;
+                border-bottom:2px;
+                border-bottom-color:#000000;
+                border-bottom-style:solid;
+                margin:-1px;
             }
         </style>
     </head>
