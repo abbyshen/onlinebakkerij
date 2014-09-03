@@ -38,7 +38,7 @@ if (!isset($_GET["action"])) {
     $action = $_GET["action"];
 if ($action == "updateprofiel") {
     $gebruikerSvc->updateGebruiker($_POST["txtNaam"], $_POST["txtVoornaam"], $_POST["txtTelefoonnummer"], $emailadres, $_POST["txtWoonplaats"], $_POST["txtPostcode"], $_POST["txtStraat"], $_POST["txtNummer"]);
-    header("location:process_login.php");
+    header("location:mijnprofiel.php");
 }
 if ($action == "updatewachtwoord") {
     $pass1 = sha1($_POST["nieuwwachtwoord1"]);
