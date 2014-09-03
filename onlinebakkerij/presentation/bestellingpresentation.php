@@ -101,6 +101,9 @@ if ($gelukt == "loggedin") {
                 if (isset($error) and $error == "datumalingebruik") {
                     print("u heeft op die datum al iets bestelt, ga naar mijn profiel om het te bekijken");
                 }
+                if (isset($error) and $error == "geenveldeningevult"){
+                    print("u heeft een veld verkeerd ingevuld gelieve enkel bij de producten die u wil het cijfer te veranderen");
+                }
                 foreach ($soortenLijst as $soort) {
                     ?> <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
                     $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
