@@ -1,0 +1,284 @@
+/* algemeen */
+.home{
+
+    background-color: #FFD696;
+    /* For WebKit (Safari, Chrome, etc) */
+    background: #FFD696 -webkit-gradient(linear, left top, left bottom, from(#734600), to(#FFD696)) no-repeat;
+    /* Mozilla,Firefox/Gecko */
+    background: #FFD696 -moz-linear-gradient(top, #734600, #FFD696) no-repeat;
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#734600, endColorstr=#FFD696) no-repeat;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#734600, endColorstr=#734600)" no-repeat;
+
+}
+p{
+    font-size: 17px;
+}
+#error{
+    color: red;
+    font-size: 20px;
+}
+h1{
+    color: white;
+    font-size: 35px;
+}
+h3 {
+    color: white;
+    font-size: 27px;
+}
+h4 {
+    color: #ccffff;
+    font-size: 19px;
+}
+.container{
+    width: 100%;
+    clear: both;
+}
+header {
+    height:120px;
+    min-width: 951px;
+}
+#kopnav {
+    padding:0;
+    float:left;
+
+}
+#kopnav li {
+    display:inline;
+    font-family:Arial;
+    font-size:15px;
+    float:left;
+    padding:10px;
+    background-color: #333333;
+    color:#ffffff;
+    border-bottom:1px;
+    border-bottom-color:#000000;
+    border-bottom-style:solid;
+}
+
+#kopnav li a{
+    font-family:Arial;
+    font-size:12px;
+    text-decoration: none;
+    float:left;
+    padding:10px;
+    background-color: #333333;
+    color:#ffffff;
+    border-bottom:1px;
+    border-bottom-color:#000000;
+    border-bottom-style:solid;
+}
+#kopnav li a:hover {
+    background-color:#9B1C26;
+    padding-bottom:12px;
+    border-bottom:2px;
+    border-bottom-color:#000000;
+    border-bottom-style:solid;
+    margin:-1px;
+}
+#logobakkerij {
+    float:left;
+    width: 23%;
+}
+#inlogform {
+    clear: right;
+    float:right;
+    width: 23%;
+}
+#inlogform td{
+    color:#ffffff;
+}
+#inlogform a {
+    text-decoration: none;
+    font-family:Arial;
+    font-size:15px;
+    color: #ffffff;
+}
+#inlogform a:hover {
+    color: #9B1C26;
+}
+#logout{
+    float: right;
+    width: 23%;
+}
+#logout a {
+    text-decoration: none;
+    font-family:Arial;
+    color: #ffffff;
+}
+#logout a:hover {
+    color: #9B1C26;
+}
+#headercontainer { 
+    width: 50%;
+    min-width: 512px;
+    height: 100px;
+    float: left;
+
+}
+footer{
+    width: 100%;
+    min-width: 636px;
+    margin-top: 50px;
+    float: left;
+    clear: both;
+    border-color: #333333;
+    border-style: solid;
+}
+footer h3 {
+    color: black;
+    font-size: 27px;
+}
+input:required:invalid, input:focus:invalid {
+                background-image: url(images/invalid.png);
+                background-position: right top;
+                background-repeat: no-repeat;
+            }
+            input:required:valid {
+                background-image: url(images/valid.png);
+                background-position: right top;
+                background-repeat: no-repeat;
+            }
+#footer1{
+    min-width: 300px;
+    width: 40%;
+    margin-left: 30px;
+    float: left;
+}
+#footer1 p{
+    margin-right: auto;
+    margin-left: auto;
+}
+#footer2{
+    min-width: 300px;
+    width: 40%;
+    float: right;
+}
+#footer2 p{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* algemeen gedaan*/
+
+
+
+/* homepage*/
+#topimage{
+    width: 100%;
+    min-width: 816px;
+}
+#welkom h1{
+    width:40%;
+    min-width: 441px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#bottomimage{
+    width: 100%;
+    min-width: 816px;
+}
+#nieuwassortiment{
+    width: 45%;
+    min-width: 467px;
+    height: auto;
+    float: left;
+}
+#nieuwassortiment h3{
+    color: white;
+    font-size: 27px;
+}
+#lijstnieuweproducten{
+    width: 50%;
+    float: left;
+}
+#cupcakes{
+    float: right;
+    width: 45%;
+    height: auto;
+}
+#bestellen{
+    width: 45%;
+    margin-left: 5%;
+    float: right;
+}
+/* einde homepage*/
+
+/* begin assortiment*/
+#assortiment{
+    width: 100%;
+    min-width: 1026px;
+}
+#soort{
+    width: 18%;
+    min-width: 150px;
+    float: left;
+    margin: 1%;
+    box-shadow:0px 0px 35px #D0C070;
+}
+#soortdeel{
+    width: 100%;
+    float: left;
+    clear: left;
+    
+}
+/* einde assortiment*/
+
+/* begin mijn profiel*/
+#hoofd{
+    width: 20%;
+    min-width: 178px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#gegevensenpass{
+    width: 100%;
+    min-width: 665px;
+}
+#mijngegevens{
+    width: 45%;
+    min-width: 300px;
+    float: left;
+}
+#mijnpass{
+    width: 45%;
+    min-width: 325px;
+    float: right;
+}
+#mijnpass label{
+    float: left;
+    clear: left;
+    width: 40%;
+    margin-top: 10px;
+}
+#mijnpass input{
+    float: left;
+    width: 40%;
+    margin-top: 9px;
+}
+
+#bestellingen{
+    clear: both;
+    width: 100%;
+    min-width: 883px;
+}
+#eenbestelling{
+    width: 30%;
+    min-width: 272px;
+    float: left;
+    border-color: white;
+    border: 2px solid white;
+    margin: 1%;
+}
+/* einde mijnprofiel*/
+
+/* begin bestelling*/
+#selectdatum{
+    width: 50%;
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
+/*einde bestelling */

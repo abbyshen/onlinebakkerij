@@ -43,7 +43,6 @@ class productDAO {
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch();
         $productid = $rij["productid"];
-        print($productid);
         return $productid;
     }
     

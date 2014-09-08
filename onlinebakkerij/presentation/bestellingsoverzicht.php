@@ -12,45 +12,15 @@ if ($gelukt == "loggedin") {
 <html>
     <head>
         <meta charset=utf-8 />
-
+        <link rel="stylesheet" href="css/stylesheetbakkerij.css">
         <title>bakkerij vroman</title>
-        <style>
-            #hoofdmenu {
-                list-style: none;
-                font-size: 0.875em; /* 14px = 1em */
-                font-weight: bold;
-                padding: 0; /* 0.5em = 6px */
-                margin: 0 1em;
-                width:auto;
-            }
-            #hoofdmenu li:nth-child(1n+0) {
-                width: 16.4%;
-                padding:0.3em 0;
-                border-top: 1px solid LavenderBlush;
-                border-right: 1px solid LavenderBlush;
-                border-bottom: none;
-                border-left: none;
-                text-align: center;
-            }
-            #hoofdmenu li:first-child {
-                border-left:1px solid LavenderBlush;
-            }
-            #hoofdmenu a {
-                display: inline;
-                cursor: pointer;
-            }
-            #hoofdmenu li:hover {
-                color:white;
-                background-color:darkseagreen;
-            }
-
-        </style>
     </head>
     <body class="home">
         <header>
+            <img src ="images/Vromans.bmp" alt="bakkerij vromans" id="logobakkerij">
             <?php if ($logged == "out") {
                 ?>
-                <form method="GET" action="process_login.php?action=inloggen">
+                <form method="post" action="process_login.php?action=inloggen" id="inlogform">
                     <table>
                         <tr>
                             <td>emailadres:</td>
@@ -71,11 +41,12 @@ if ($gelukt == "loggedin") {
                             </td>
                         </tr>
                     </table>
+                    <a href="aanmelden.php"> aanmelden </a>
                 </form>
-            <?php } if ($logged == "in") { ?><h2><a href="logout.php">log out</a></h2><?php }
+
+            <?php } if ($logged == "in") { ?><h2 id="logout"><a href="logout.php">log out</a></h2><?php }
             ?>
-            <div class="container">
-                <h1><a href="home.php" id="logo">Bakkerij vroman</a></h1>
+            <div id="headercontainer">
                 <nav id="kopnav">
                     <ul id="hoofdmenu">
                         <li><a href="home.php">home</a></li>
@@ -96,21 +67,22 @@ if ($gelukt == "loggedin") {
         <section>
             <h1>is uw bestelling in orde?</h1>
             <form method="post" action="bestellingopnemen.php?action=bestellingfase2">
-                <?php 
+                <?php
                 $prijstot = 0;
-                while($i<=$maxaantal){
-                    if ($aantalarray[$i]!=0){
+                while ($i <= $maxaantal) {
+                    if ($aantalarray[$i] != 0) {
                         $productnaam = $productenSvc1->productnaammetid($i);
                         $productprijs = $productenSvc1->productprijsmetid($i);
                         $prijs = $productprijs * $aantalarray[$i];
                         $prijstot = $prijstot + $prijs;
-                        ?><p>artikelnaam : <?php echo $productnaam?> aantal: <?php echo $aantalarray[$i]?> prijs: <?php echo $prijs?>€</p>
+                        ?><p>artikelnaam : <?php echo $productnaam ?> aantal: <?php echo $aantalarray[$i] ?> prijs: <?php echo $prijs ?>€</p>
                         <?php
                     }
                     $i++;
-                }?>
-                        <p>dit is uw bestelling voor <?php echo $datum?></p>
-                        <p>de totale prijs bedraagt <?php echo $prijstot?>€</p>
+                }
+                ?>
+                <p>dit is uw bestelling voor <?php echo $datum ?></p>
+                <p>de totale prijs bedraagt <?php echo $prijstot ?>€</p>
                 <input type="submit" value="in orde!">
             </form>
             <form method="post" action="bestellingopnemen.php">

@@ -19,5 +19,5 @@ if (isset($_GET["action"], $_POST['email'], $_POST['p']) and $_GET["action"] == 
         $error = null;
     }else
     $error = $_GET["error"];
-    include("presentation/gebruikerinloggen.php");
+    include("home.php");
 }

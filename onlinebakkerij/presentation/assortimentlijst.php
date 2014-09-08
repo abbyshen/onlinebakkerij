@@ -1,6 +1,6 @@
 <?php
 $gelukt = gebruikerservice::logincheck();
-if ($gelukt =="loggedin") {
+if ($gelukt == "loggedin") {
     $logged = "in";
 } else {
     $logged = "out";
@@ -10,42 +10,15 @@ if ($gelukt =="loggedin") {
 <html>
     <head>
         <meta charset=utf-8>
+        <link rel="stylesheet" href="css/stylesheetbakkerij.css">
         <title>assortiment</title>
-        <style>
-            #hoofdmenu {
-                list-style: none;
-                font-size: 0.875em; /* 14px = 1em */
-                font-weight: bold;
-                padding: 0; /* 0.5em = 6px */
-                margin: 0 1em;
-                width:auto;
-            }
-            #hoofdmenu li:nth-child(1n+0) {
-                width: 16.4%;
-                padding:0.3em 0;
-                border-top: 1px solid LavenderBlush;
-                border-right: 1px solid LavenderBlush;
-                border-bottom: none;
-                border-left: none;
-                text-align: center;
-            }
-            #hoofdmenu li:first-child {
-                border-left:1px solid LavenderBlush;
-            }
-            #hoofdmenu a {
-                display: inline;
-                cursor: pointer;
-            }
-            #hoofdmenu li:hover {
-                color:white;
-                background-color:darkseagreen;
-            }
-        </style>
     </head>
-    <header>
-            <?php if ($logged=="out") {
+    <body class="home">
+        <header>
+            <img src ="images/Vromans.bmp" alt="bakkerij vromans" id="logobakkerij">
+            <?php if ($logged == "out") {
                 ?>
-              <form method="post" action="process_login.php?action=inloggen">
+                <form method="post" action="process_login.php?action=inloggen" id="inlogform">
                     <table>
                         <tr>
                             <td>emailadres:</td>
@@ -66,44 +39,65 @@ if ($gelukt =="loggedin") {
                             </td>
                         </tr>
                     </table>
+                    <a href="aanmelden.php"> aanmelden </a>
                 </form>
-            <a href="aanmelden.php"> aanmelden </a>
-            <?php } if ($logged=="in") { ?><h2><a href="logout.php">log out</a></h2><?php
-        } ?>
-            <div class="container">
-                <h1><a href="home.php" id="logo">Bakkerij vroman</a></h1>
+
+            <?php } if ($logged == "in") { ?><h2 id="logout"><a href="logout.php">log out</a></h2><?php }
+            ?>
+            <div id="headercontainer">
                 <nav id="kopnav">
                     <ul id="hoofdmenu">
                         <li><a href="home.php">home</a></li>
                         <li><a href="assortiment.php">ons assortiment</a></li>
                         <li><a href="overons.php">over ons</a></li>
-                            <?php if ($logged == "in") {
-                                ?><li><a href="mijnprofiel.php">mijn profiel</a></li>
-                            <li><a href="bestellingopnemen.php">bestellen</a></li><?php 
-                            } ?>
-                            <?php if ($logged == "out") {
-                                ?><li>mijn profiel</li>
-                            <li>bestellen</li><?php 
-                            } ?>
+                        <?php if ($logged == "in") {
+                            ?><li><a href="mijnprofiel.php">mijn profiel</a></li>
+                            <li><a href="bestellingopnemen.php">bestellen</a></li><?php }
+                        ?>
+                        <?php if ($logged == "out") {
+                            ?><li>mijn profiel</li>
+                            <li>bestellen</li><?php }
+                        ?>
                     </ul>
                 </nav>
             </div>
         </header>
-    <body>
-        <h1>assortiment</h1>
-        <?php 
-        foreach ($soortenLijst as $soort) {
-                    ?> <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
+        <h1 id="hoofd">assortiment</h1>
+        <div id="assortiment">
+            <?php
+            foreach ($soortenLijst as $soort) {
+                ?>
+                <div id="soort">
+                    <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
                     $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
                     foreach ($productLijst as $product) {
                         $Pnaam = $product->getNaam();
-                        ?><div class="bestelling"><p><?php print($Pnaam); ?></p>
-                            <p><?php print($product->getPrijs());print("€"); ?></p>
-                            <p>--------------------------</p></div>
+                        ?><div id="soortdeel"><h4><?php print($Pnaam); ?></h4>
+                            <p><?php
+                                print($product->getPrijs());
+                                print("€");
+                                ?></p>
+                        </div>
                     <?php }
-                }
+                    ?></div><?php
+            }
             ?>
-        </table>
+        </div>
+        <footer>
+            <article id="footer1">
+                <h3>Bakkerij vroman</h3>
+                <p>blablastraat 6  </p>
+                <p>8623 bakkersgemeente</p>
+                <p>tel:0494906333</p>
+                <p>email:niels.vroman@hotmail.com</p>
+            </article>
+            <article id="footer2">
+                <h3>alle dagen open:</h3>
+                <p>maandag tem vrijdag: 7u30 - 18u30</p>
+                <p>zaterdag           : 8u30 - 17u30</p>
+                <p>zondag             : 7u30 - 12u30</p>
+            </article>
+        </footer>
     </body>
 </html>
 

@@ -11,6 +11,7 @@ if($gebruikersvc->logincheck()=="loggedin"){
 <html>
     <head>
         <meta charset=utf-8>
+         <link rel="stylesheet" href="css/stylesheetbakkerij.css">
         <title>inloggen</title>
         <style>
             #hoofdmenu {

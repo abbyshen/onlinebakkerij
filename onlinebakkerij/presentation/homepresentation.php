@@ -10,141 +10,7 @@ if ($gelukt == "loggedin") {
 <html>
     <head>
         <meta charset=utf-8 />
-        <style>
-            .home{
-                
-                    background-color: #FFD696;
-                    /* For WebKit (Safari, Chrome, etc) */
-                    background: #FFD696 -webkit-gradient(linear, left top, left bottom, from(#734600), to(#FFD696)) no-repeat;
-                    /* Mozilla,Firefox/Gecko */
-                    background: #FFD696 -moz-linear-gradient(top, #734600, #FFD696) no-repeat;
-                    /* IE 5.5 - 7 */
-                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#734600, endColorstr=#FFD696) no-repeat;
-                    /* IE 8 */
-                    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#734600, endColorstr=#734600)" no-repeat;
-                
-            }
-            header {
-                height:120px;
-            }
-            #kopnav {
-                padding:0;
-                float:left;
-                
-            }
-            #kopnav li {
-                display:inline;
-                font-family:Arial;
-                font-size:15px;
-                float:left;
-                padding:10px;
-                background-color: #333333;
-                color:#ffffff;
-                border-bottom:1px;
-                border-bottom-color:#000000;
-                border-bottom-style:solid;
-            }
-
-            #kopnav li a{
-                font-family:Arial;
-                font-size:12px;
-                text-decoration: none;
-                float:left;
-                padding:10px;
-                background-color: #333333;
-                color:#ffffff;
-                border-bottom:1px;
-                border-bottom-color:#000000;
-                border-bottom-style:solid;
-            }
-            #kopnav li a:hover {
-                background-color:#9B1C26;
-                padding-bottom:12px;
-                border-bottom:2px;
-                border-bottom-color:#000000;
-                border-bottom-style:solid;
-                margin:-1px;
-            }
-            #logobakkerij {
-                float:left;
-            }
-            #inlogform {
-                margin-right: 60px;
-                clear: right;
-                float:right;
-            }
-            #inlogform td{
-                color:#ffffff;
-            }
-            #inlogform a {
-                text-decoration: none;
-                font-family:Arial;
-                font-size:12px;
-                color: #ffffff;
-            }
-            #inlogform a:hover {
-                color: #9B1C26;
-            }
-            #logout{
-                float: right;
-                margin-right: 60px;
-            }
-            #logout a {
-                text-decoration: none;
-                font-family:Arial;
-                color: #ffffff;
-            }
-            #logout a:hover {
-                color: #9B1C26;
-            }
-            #headercontainer { 
-                width: 540px;
-                height: 100px;
-                float: left;
-                margin-left: 50px ;
-
-            }
-            .container{
-                width: 100%;
-                clear: both;
-            }
-            #logobakkerij{
-                margin-top: 14px;
-                margin-left: 120px;
-                margin-right: 40px;
-            }
-            #welkom h1{
-                width: 300px;
-                margin-left: auto;
-                margin-right: auto;
-                color: white;
-            }
-            footer{
-                width: 100%;
-                float: left;
-                clear: both;
-                border-color: #333333;
-                border-style: solid;
-            }
-            #footer1{
-                width: 300px;
-                float: left;
-                margin-left:60px;
-            }
-            #footer1 p{
-                margin-right: auto;
-                margin-left: auto;
-            }
-            #footer2{
-                width: 300px;
-                float: right;
-                margin-right: 60px;
-            }
-            #footer2 p{
-                margin-right: auto;
-                margin-left: auto;
-            }
-        </style>
+        <link rel="stylesheet" href="css/stylesheetbakkerij.css">
     </head>
     <body class="home">
         <header>
@@ -196,38 +62,48 @@ if ($gelukt == "loggedin") {
             </div>
         </header>
         <div id="inhoud" class="container">
-            <img src="images/homeafb1edit1.png" alt="pistoles">
+            <img src="images/homeafb1edit1.png" alt="pistoles" id="topimage"/>
             <section id ="welkom">
                 <h1>welkom bij bakkerij vroman!</h1>
-                <img src="images/homeafb1edit2.png" alt="pistoles">
-                <p>nieuw in ons assortiment:cupcakes</p>
-                <p>gebakjes:</p>
-
-                <?php
-                foreach ($productenLijst as $product) {
-                    ?><p><?php
-                        print($product->getNaam());
-                        print("      ");
-                        print($product->getPrijs());
-                        ?></p><?php
-            }
-                    ?>
+                <img src="images/homeafb1edit2.png" alt="pistoles" id="bottomimage"/>
             </section>
-            <footer>
-                <article id="footer1">
-                    <h3>Bakkerij vroman</h3>
-                    <p>blablastraat 6  </p>
-                    <p>8623 bakkersgemeente</p>
-                    <p>tel:0494906333</p>
-                    <p>email:niels.vroman@hotmail.com</p>
-                </article>
-                <article id="footer2">
-                    <h3>alle dagen open:</h3>
-                    <p>maandag tem vrijdag: 7u30 - 18u30</p>
-                    <p>zaterdag           : 8u30 - 17u30</p>
-                    <p>zondag             : 7u30 - 12u30</p>
-                </article>
-            </footer>
+            <section id="nieuwassortiment">
+                <h3>nieuw in ons assortiment:cupcakes</h3>
+                <div id="lijstnieuweproducten">
+                    <?php
+                    foreach ($productenLijst as $product) {
+                        ?><p><?php
+                            print($product->getNaam());
+                            print(":      ");
+                            print($product->getPrijs());
+                            print("€");
+                            ?></p><?php
+                    }
+                    ?>
+                </div>
+                <img src="images/cupcakes.jpg" alt="cupcakes" id="cupcakes"/>
+            </section>
+            <section id="bestellen">
+                <h3>bestellen?</h3>
+                <p>om je bestelling te plaatsen gelieve je aan te melden en in te loggen</p>
+                <p>als je ingelogd bent. Dan kan je naar bestelling gaan! en uw bestelling plaatsen</p>
+                <p>of klik <a href="bestellingopnemen.php">hier</a> en ga naar bestelling (enkel als je ingelogd bent)</p>
+            </section>
         </div>
+        <footer>
+            <article id="footer1">
+                <h3>Bakkerij vroman</h3>
+                <p>blablastraat 6  </p>
+                <p>8623 bakkersgemeente</p>
+                <p>tel:0494906333</p>
+                <p>email:niels.vroman@hotmail.com</p>
+            </article>
+            <article id="footer2">
+                <h3>alle dagen open:</h3>
+                <p>maandag tem vrijdag: 7u30 - 18u30</p>
+                <p>zaterdag           : 8u30 - 17u30</p>
+                <p>zondag             : 7u30 - 12u30</p>
+            </article>
+        </footer>
     </body>
 </html>
