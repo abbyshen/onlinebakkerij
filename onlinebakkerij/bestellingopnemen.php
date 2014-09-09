@@ -24,7 +24,7 @@ if (!isset($_GET["action"])) {
 if ($action == "bestellingfase1") {
     while ($i <= $maxaantal) {
         $aantal = $_POST["aantal$i"];
-        if ($aantal != 0) {
+        if ($aantal != 0 and $aantal > 0) {
             $aantalarray[$i] = $aantal;
             $ingevuldeproducten++;
         } else {

@@ -87,19 +87,20 @@
                     </form>
                 </section>
                 <section id="mijnpass">
-                    <form method="post" action="mijnprofiel.php?action=updatewachtwoord" id="formpass">
-                        <h3>mijn wachtwoord:</h3>
-                        <?php
+                    <h3>mijn wachtwoord:</h3>
+                    <?php
                         if ($error == "foutinw8woord") {
-                            print("uw nieuw wachtwoord is hetzelfde als uw oud dit mag niet");
+                            ?> <p id="error"><?php print("uw nieuw wachtwoord is hetzelfde als uw oud dit mag niet");?></p><?php
                         }
                         if ($error == "foutinw8woord12") {
-                            print("wachtwoord 1 en wachtwoord 2 zijn niet gelijk");
+                            ?> <p id="error"><?php print("wachtwoord 1 en wachtwoord 2 zijn niet gelijk");?></p><?php
                         }
                         if ($error == "foutinoudw") {
-                            print("uw oude wachtwoord is niet correct");
+                            ?> <p id="error"><?php print("uw oude wachtwoord is niet correct");?></p><?php
                         }
                         ?>
+                    <form method="post" action="mijnprofiel.php?action=updatewachtwoord" id="formpass">
+                        
                         <label>nieuw wachtwoord:</label><input type="password" name="nieuwwachtwoord1"/>
                         <label>nieuw wachtwoord:</label><input type="password" name="nieuwwachtwoord2"/>
                         <label>huidig wachtwoord:</label><input type="password" name="oudwachtwoord"/>

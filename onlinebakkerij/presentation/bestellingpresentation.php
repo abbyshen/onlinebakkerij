@@ -65,8 +65,8 @@ if ($gelukt == "loggedin") {
             </div>
         </header>
         <section>
-            <h1>bestel hier</h1>
-            <h3>schrijf onder hetgeen u wil het aantal dat u wil.</h3>
+            <h1 id="hoofd">bestel hier</h1>
+            <h3 id="hoofd">schrijf onder hetgeen u wil het aantal dat u wil.</h3>
             <form method="post" action="bestellingopnemen.php?action=bestellingfase1&aantalarray=<?php $aantalarray ?>">
                 <?php
                 if (isset($error) and $error == "datumalingebruik") {
@@ -80,11 +80,11 @@ if ($gelukt == "loggedin") {
                     ?><div id="soort"> <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
                     $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
                     foreach ($productLijst as $product) {
-                       ?> <div class="soortdeel"><?php
                         $Pnaam = $product->getNaam();
                         $Pid = ($productenSvc1->productidmetnaam($Pnaam));?>
+                          <div id="soortdeel">
                            <h4><?php print($Pnaam); ?></h4>
-                            <p><?php print($product->getPrijs()); ?></p>
+                            <p><?php print($product->getPrijs());print("€"); ?></p>
                             <input type="text" value="0" name="aantal<?php echo $Pid ?>">
                             </div>
                     <?php
