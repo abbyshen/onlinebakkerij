@@ -299,3 +299,24 @@ input:required:invalid, input:focus:invalid {
     
 }
 /*einde bestelling */
+/* begin over ons */
+#wie,#wat{
+    background-color: #734600;
+    width: 20%;
+    float: left;
+    margin: 2%;
+    box-shadow:0px 0px 35px #D0C070;
+}
+#waar{
+    background-color: #734600;
+    width: 48%;
+    float: left;
+    margin: 2%;
+    box-shadow:0px 0px 35px #D0C070;
+}
+#wie h3,#wat h3,#waar h3{
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+/* einde over ons*/

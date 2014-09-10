@@ -89,5 +89,20 @@ if ($gelukt == "loggedin") {
                 <input type="submit" value="cancel">
             </form>
         </section>
+        <footer>
+            <article id="footer1">
+                <h3>Bakkerij vroman</h3>
+                <p>korenstraat 6  </p>
+                <p>8531 Bavikhove</p>
+                <p>tel:0494906333</p>
+                <p>email:niels.vroman@hotmail.com</p>
+            </article>
+            <article id="footer2">
+                <h3>alle dagen open:</h3>
+                <p>maandag tem vrijdag: 7u30 - 18u30</p>
+                <p>zaterdag           : 8u30 - 17u30</p>
+                <p>zondag             : 7u30 - 12u30</p>
+            </article>
+        </footer>
     </body>
 </html>

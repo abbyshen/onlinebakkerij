@@ -93,8 +93,8 @@ if ($gelukt == "loggedin") {
         <footer>
             <article id="footer1">
                 <h3>Bakkerij vroman</h3>
-                <p>blablastraat 6  </p>
-                <p>8623 bakkersgemeente</p>
+                <p>korenstraat 6  </p>
+                <p>8531 Bavikhove</p>
                 <p>tel:0494906333</p>
                 <p>email:niels.vroman@hotmail.com</p>
             </article>

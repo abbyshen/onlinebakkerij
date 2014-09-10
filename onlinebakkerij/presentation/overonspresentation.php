@@ -11,7 +11,7 @@ if ($gelukt == "loggedin") {
     <head>
         <meta charset=utf-8>
         <link rel="stylesheet" href="css/stylesheetbakkerij.css">
-        <title>assortiment</title>
+        <title>over ons</title>
     </head>
     <body class="home">
         <header>
@@ -62,27 +62,31 @@ if ($gelukt == "loggedin") {
                 </nav>
             </div>
         </header>
-        <h1 id="hoofd">assortiment</h1>
-        <div id="assortiment">
-            <?php
-            foreach ($soortenLijst as $soort) {
-                ?>
-                <div id="soort">
-                    <h3> <?php print($soort->getOmschrijving()); ?> </h3> <?php
-                    $productLijst = $productenSvc1->getproductenpersoort($soort->getId());
-                    foreach ($productLijst as $product) {
-                        $Pnaam = $product->getNaam();
-                        ?><div id="soortdeel"><h4><?php print($Pnaam); ?></h4>
-                            <p><?php
-                                print($product->getPrijs());
-                                print("€");
-                                ?></p>
-                        </div>
-                    <?php }
-                    ?></div><?php
-            }
-            ?>
-        </div>
+        <h1 id="hoofd">over ons</h1>
+        <section>
+            <div id="wie">
+                <h3>wie</h3>
+                <div id="soortdeel">
+                    <p>ik ben niels vroman en bakker in Bavikhove (Harelbeke). </p>
+                </div>
+            </div>
+            <div id="wat">
+                <h3>wat</h3>
+                <div id="soortdeel">
+                    <p>bakkerij vroman!</p> <p>we zijn elke dag van de week open en staan klaar voor u het beste van het beste te geven.</p>
+                    <p>elke dag vers brood die u besteld heeft of en in de bakkerij komt afhalen of in de winkel zelf.</p>
+                    <p>als u inlogd kan u <a href="bestellingopnemen.php">hier</a> bestellen indien u nog moet aanmelden druk op aanmelden maak een account en bestel!</p>
+                    <p>u kan enkel bestellen voor morgen, overmorgen of voor binnen 3 dagen.</p>
+                    <p>on assortiment vind u <a href="assortiment.php">hier</a>.</p>
+                </div>
+            </div>
+            <div id="waar">
+                <h3>waar</h3>
+                <div id="soortdeel">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.2866601320816!2d3.316514599999991!3d50.881404599999904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c33bfde33c50a3%3A0xb596d46666a0b93a!2sKorenstraat%2C+8531+Harelbeke!5e0!3m2!1snl!2sbe!4v1410350570790" width=100% height="450" frameborder="0" style="border:0"></iframe>
+                </div>
+            </div>
+        </section>
         <footer>
             <article id="footer1">
                 <h3>Bakkerij vroman</h3>
