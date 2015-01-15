@@ -11,8 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-            //header("location:onlinebakkrij/home.php");
+            header("location:onlinebakkrij/home.php");
         ?>
-        <h1>hello!</h1>
     </body>
 </html>
