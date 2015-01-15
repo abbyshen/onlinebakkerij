@@ -52,20 +52,21 @@ class gebruikerDAO {
     }
 
     public function create($naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
-    , $woonplaats, $postcode, $straat, $nummer, $geblokkeerd) {
+    , $woonplaats, $postcodeid, $straat, $nummer, $geblokkeerd) {
         $bestaandgebruiker = $this->getByemailadres($emailadres);
         if ($bestaandgebruiker->getId()==0){
         $sql = "insert into gebruiker (naam, voornaam, wachtwoord, telefoonnummer, emailadres
-                                ,woonplaats, postcode, straat, nummer,geblokkeerd)
+                                ,woonplaats, postcodeid, straat, nummer,geblokkeerd)
                 values ('" . $naam . "', '" . $voornaam . "','" . $wachtwoord . "','" . $telefoonnummer . "','"
-                . $emailadres . "','" . $woonplaats . "','" . $postcode . "','" . $straat . "','" . $nummer . "','" . $geblokkeerd . "')";
+                . $emailadres . "','" . $woonplaats . "','" . $postcodeid . "','" . $straat . "','" . $nummer . "','" . $geblokkeerd . "')";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $test = $dbh->exec($sql);
         if($test==null){throw new allesmoetingevultzijnexception();}
         $gebruikersId = $dbh->lastInsertId();
+        print_r($sql);
         $dbh = null;
         $gebruiker = gebruiker::create($gebruikersId,$naam, $voornaam, $wachtwoord, $telefoonnummer, $emailadres
-                        , $woonplaats, $postcode, $straat, $nummer, $geblokkeerd);
+                        , $woonplaats, $postcodeid, $straat, $nummer, $geblokkeerd);
         return $gebruiker;}else{    throw new EmailadresBestaatException();}
         
         
